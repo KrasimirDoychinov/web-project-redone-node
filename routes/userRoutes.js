@@ -6,7 +6,6 @@ const {
 	registerUser,
 	loginUser,
 } = require('../controllers/userController');
-const { setTitle } = require('../utils/utils');
 
 router.get('/register', registerView);
 router.get('/login', loginView);
