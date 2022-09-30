@@ -1,7 +1,11 @@
-<form action="login" method="post">
-	<label for="name">Name</label>
-	<input type="text" id="name" name="name" />
-	<label for="password">Password</label>
-	<input type="password" id="password" name="password" />
-	<button type="submit">Login</button>
+<form id="login-form" action="login" method="post">
+	<div class="form-data">
+		<label for="name">Name</label>
+		<input type="text" id="name" name="name" />
+	</div>
+	<div class="form-data">
+		<label for="password">Password</label>
+		<input type="password" id="password" name="password" />
+	</div>
+	<a type="submit" id="login-btn">Login</a>
 </form>
