@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const { redirect } = require('../utils/utils');
 
 const registerView = function (req, res) {
 	res.render('register', { title: 'Register' });
@@ -10,20 +11,14 @@ const loginView = function (req, res) {
 };
 
 const registerUser = async function (req, res) {
-	const redirectBackToRegister = function (res) {
-		res.render('register', {
-			title: 'Register',
-		});
-	};
-
 	const { name, password, confirm } = req.body;
 	if (!name || !password || !confirm) {
-		redirectBackToRegister(res);
+		redirect(res, '/user/register', { title: 'Register' });
 		return;
 	}
 
 	if (password !== confirm) {
-		redirectBackToRegister(res);
+		redirect(res, '/user/register', { title: 'Register' });
 		return;
 	}
 
@@ -31,7 +26,7 @@ const registerUser = async function (req, res) {
 	if (user) {
 		console.log('User already exists');
 
-		redirectBackToRegister(res);
+		redirect(res, '/user/register', { title: 'Register' });
 		return;
 	}
 
@@ -40,8 +35,7 @@ const registerUser = async function (req, res) {
 		password,
 	});
 
-	const salt = await bcrypt.genSalt(10);
-	const hash = await bcrypt.hash(newUser.password, salt);
+	const hash = await bcrypt.hash(newUser.password);
 
 	newUser.password = hash;
 	newUser
@@ -50,8 +44,29 @@ const registerUser = async function (req, res) {
 		.catch((err) => console.log(err));
 };
 
+const loginUser = async function (req, res) {
+	const { name, password } = req.body;
+
+	const foundUser = await User.findOne({ name: name });
+	if (!foundUser) {
+		redirect(res, '/user/login', { title: 'Login' });
+		return;
+	}
+
+	const passwordsMatch = await bcrypt.compare(password, foundUser.password);
+	if (!passwordsMatch) {
+		redirect(res, '/user/login', { title: 'Login' });
+		console.log("Hashes don't match");
+		return;
+	}
+
+	console.log(`Successfuly login in ${foundUser.name}`);
+	redirect(res, '/user/register', { title: 'Register' });
+};
+
 module.exports = {
 	registerView,
 	loginView,
 	registerUser,
+	loginUser,
 };
