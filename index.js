@@ -7,7 +7,7 @@ const bp = require('body-parser');
 dotenv.config();
 
 // View engine
-app.use(express.static('public'));
+app.use('/static', express.static(__dirname + '/static'));
 app.use(expressLayouts);
 app.set('layout', './layout.ejs');
 app.set('view engine', 'ejs');
