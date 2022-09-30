@@ -1,11 +1,12 @@
 const express = require('express');
+const router = express.Router();
 const {
 	registerView,
 	loginView,
 	registerUser,
 	loginUser,
 } = require('../controllers/userController');
-const router = express.Router();
+const { setTitle } = require('../utils/utils');
 
 router.get('/register', registerView);
 router.get('/login', loginView);

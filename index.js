@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
+const { setTitle } = require('./utils/utils');
 dotenv.config();
 
 // View engine
@@ -16,7 +17,7 @@ app.set('view engine', 'ejs');
 app.use(bp.urlencoded({ extended: true }));
 app.use(bp.json());
 app.use('/user', require('./routes/userRoutes'));
-
+app.use('/', require('./routes/homeRoutes'));
 // Mongo DB connection
 const dbUri = process.env.MONGODB_URI;
 mongoose
