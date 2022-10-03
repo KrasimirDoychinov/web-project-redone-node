@@ -42,19 +42,20 @@ const loginUserService = async function (req, res) {
 
 	const foundUser = await User.findOne({ name: name });
 	if (!foundUser) {
-		redirect(res, '/user/login', { title: 'Login' });
+		res.render('login', {
+			data: { name, password, nameErr: true },
+		});
 		return;
 	}
 
 	const passwordsMatch = await bcrypt.compare(password, foundUser.password);
 	if (!passwordsMatch) {
-		redirect(res, '/user/login', { title: 'Login' });
-		console.log("Hashes don't match");
+		res.render('login', { data: { name, password, passErr: true } });
 		return;
 	}
 
 	console.log(`Successfuly login in ${foundUser.name}`);
-	redirect(res, '/', { title: 'Home' });
+	redirect(res, 300, '/');
 };
 
 module.exports = {

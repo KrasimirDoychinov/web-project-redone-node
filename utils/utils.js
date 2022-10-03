@@ -1,5 +1,5 @@
-const redirect = function (res, route, obj) {
-	res.redirect(route, 300, obj);
+const redirect = function (res, status, route, obj) {
+	res.redirect(route, status, obj);
 };
 
 module.exports = {

@@ -1,11 +1,33 @@
 <form id="login-form" action="login" method="post">
 	<div class="form-data">
-		<label for="name">Name</label>
-		<input type="text" id="name" name="name" />
+		<label for="name">NAME</label>
+		<div class="form-input">
+			<% if (data.name) { %>
+			<input type="text" id="name" name="name" value="<%= data.name %>" />
+			<% if (data.nameErr) { %>
+			<p>A user with that was not found.</p>
+			<% } %> <% } else { %>
+			<input type="text" id="name" name="name" />
+			<% } %>
+		</div>
 	</div>
 	<div class="form-data">
-		<label for="password">Password</label>
-		<input type="password" id="password" name="password" />
+		<label for="password">PASSWORD</label>
+		<div class="form-input">
+			<% if (data.password) { %>
+			<input
+				type="password"
+				id="password"
+				name="password"
+				value="<%= data.password %>"
+			/>
+			<% if (data.passErr) { %>
+			<p>The password you entered is incorrect.</p>
+			<% } %> <% } else { %>
+			<input type="password" id="password" name="password" />
+
+			<% } %>
+		</div>
 	</div>
-	<a type="submit" id="login-btn">Login</a>
+	<button type="submit" id="login-btn">Login</button>
 </form>

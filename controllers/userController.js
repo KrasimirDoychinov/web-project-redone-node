@@ -8,7 +8,7 @@ const registerView = function (req, res) {
 };
 
 const loginView = function (req, res) {
-	res.render('login');
+	res.render('login', { name: '', password: '' });
 };
 
 const registerUser = async function (req, res) {
