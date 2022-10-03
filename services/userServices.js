@@ -1,24 +1,39 @@
 const { redirect } = require('../utils/utils');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const { requiredFields } = require('../utils/consts');
 
 const registerUserService = async function (req, res) {
 	const { name, password, confirm } = req.body;
 	if (!name || !password || !confirm) {
-		redirect(res, '/user/register', { title: 'Register' });
-		return;
-	}
-
-	if (password !== confirm) {
-		redirect(res, '/user/register', { title: 'Register' });
+		res.render('register', {
+			data: { name, password, confirm, generalErrMsg: requiredFields },
+		});
 		return;
 	}
 
 	const user = await User.findOne({ name: name });
 	if (user) {
-		console.log('User already exists');
+		res.render('register', {
+			data: {
+				name,
+				password,
+				confirm,
+				generalErrMsg: 'User already exists with that name.',
+			},
+		});
+		return;
+	}
 
-		redirect(res, '/user/register', { title: 'Register' });
+	if (password !== confirm) {
+		res.render('register', {
+			data: {
+				name,
+				password,
+				confirm,
+				confirmErrMsg: 'Both passwords must match.',
+			},
+		});
 		return;
 	}
 
@@ -33,7 +48,7 @@ const registerUserService = async function (req, res) {
 	newUser.password = hash;
 	newUser
 		.save()
-		.then(redirect(res, '/user/login', { title: 'Register' }))
+		.then(res.redirect('/'))
 		.catch((err) => console.log(err));
 };
 
@@ -45,7 +60,7 @@ const loginUserService = async function (req, res) {
 			data: {
 				name,
 				password,
-				generalErrMsg: 'All fields are required',
+				generalErrMsg: requiredFields,
 			},
 		});
 	}

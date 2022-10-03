@@ -2,20 +2,41 @@
 	<div class="auth-data">
 		<label for="name">NAME</label>
 		<div class="auth-input">
-			<input type="text" id="name" name="name" />
+			<% if (data.name) { %>
+			<input type="text" name="name" value="<%= data.name %>" />
+			<% if (data.nameErrMsg) { %>
+			<p><%= data.nameErrMsg %></p>
+			<% } %> <% } else { %>
+			<input type="text" name="name" />
+			<% } %>
 		</div>
 	</div>
 	<div class="auth-data">
-		<label for="password">PASSWORD</label>
+		<label for="name">PASSWORD</label>
 		<div class="auth-input">
-			<input type="password" id="password" name="password" />
+			<% if (data.password) { %>
+			<input type="password" name="password" value="<%= data.password %>" />
+			<% if (data.passErrMsg) { %>
+			<p><%= data.passErrMsg %></p>
+			<% } %> <% } else { %>
+			<input type="password" name="password" />
+			<% } %>
 		</div>
 	</div>
 	<div class="auth-data">
-		<label for="confirm">CONFIRM PASSWORD</label>
+		<label for="name">CONFIRM PASSWORD</label>
 		<div class="auth-input">
-			<input type="password" name="confirm" id="confirm" />
+			<% if (data.confirm) { %>
+			<input type="password" name="confirm" value="<%= data.confirm %>" />
+			<% if (data.confirmErrMsg) { %>
+			<p><%= data.confirmErrMsg %></p>
+			<% } %> <% } else { %>
+			<input type="password" name="confirm" />
+			<% } %>
 		</div>
 	</div>
+	<% if (data.generalErrMsg) { %>
+	<p><%= data.generalErrMsg %></p>
+	<% } %>
 	<button class="auth-btn" type="submit">Register</button>
 </form>
