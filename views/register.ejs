@@ -1,9 +1,21 @@
-<form action="register" method="post">
-	<label for="name">Name</label>
-	<input type="text" id="name" name="name" />
-	<label for="password">Password</label>
-	<input type="password" id="password" name="password" />
-	<label for="confirm">Confirm password</label>
-	<input type="password" name="confirm" id="confirm" />
-	<button type="submit">Register</button>
+<form class="auth" action="register" method="post">
+	<div class="auth-data">
+		<label for="name">NAME</label>
+		<div class="auth-input">
+			<input type="text" id="name" name="name" />
+		</div>
+	</div>
+	<div class="auth-data">
+		<label for="password">PASSWORD</label>
+		<div class="auth-input">
+			<input type="password" id="password" name="password" />
+		</div>
+	</div>
+	<div class="auth-data">
+		<label for="confirm">CONFIRM PASSWORD</label>
+		<div class="auth-input">
+			<input type="password" name="confirm" id="confirm" />
+		</div>
+	</div>
+	<button class="auth-btn" type="submit">Register</button>
 </form>

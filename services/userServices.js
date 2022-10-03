@@ -40,17 +40,37 @@ const registerUserService = async function (req, res) {
 const loginUserService = async function (req, res) {
 	const { name, password } = req.body;
 
+	if (!name || !password) {
+		res.render('login', {
+			data: {
+				name,
+				password,
+				generalErrMsg: 'All fields are required',
+			},
+		});
+	}
+
 	const foundUser = await User.findOne({ name: name });
 	if (!foundUser) {
 		res.render('login', {
-			data: { name, password, nameErr: true },
+			data: {
+				name,
+				password,
+				nameErrMsg: "User with this name wasn't found.",
+			},
 		});
 		return;
 	}
 
 	const passwordsMatch = await bcrypt.compare(password, foundUser.password);
 	if (!passwordsMatch) {
-		res.render('login', { data: { name, password, passErr: true } });
+		res.render('login', {
+			data: {
+				name,
+				password,
+				passErrMsg: 'The password is incorrect.',
+			},
+		});
 		return;
 	}
 

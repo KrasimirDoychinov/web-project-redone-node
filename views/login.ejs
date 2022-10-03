@@ -1,19 +1,19 @@
-<form id="login-form" action="login" method="post">
-	<div class="form-data">
+<form class="auth" action="login" method="post">
+	<div class="auth-data">
 		<label for="name">NAME</label>
-		<div class="form-input">
+		<div class="auth-input">
 			<% if (data.name) { %>
 			<input type="text" id="name" name="name" value="<%= data.name %>" />
-			<% if (data.nameErr) { %>
-			<p>A user with that was not found.</p>
+			<% if (data.nameErrMsg) { %>
+			<p><%= data.nameErrMsg %></p>
 			<% } %> <% } else { %>
 			<input type="text" id="name" name="name" />
 			<% } %>
 		</div>
 	</div>
-	<div class="form-data">
+	<div class="auth-data">
 		<label for="password">PASSWORD</label>
-		<div class="form-input">
+		<div class="auth-input">
 			<% if (data.password) { %>
 			<input
 				type="password"
@@ -21,13 +21,16 @@
 				name="password"
 				value="<%= data.password %>"
 			/>
-			<% if (data.passErr) { %>
-			<p>The password you entered is incorrect.</p>
+			<% if (data.passErrMsg) { %>
+			<p><%= data.passErrMsg %></p>
 			<% } %> <% } else { %>
 			<input type="password" id="password" name="password" />
 
 			<% } %>
 		</div>
 	</div>
-	<button type="submit" id="login-btn">Login</button>
+	<% if (data.generalErrMsg) { %>
+	<p><%= data.generalErrMsg %></p>
+	<% } %>
+	<button type="submit" class="auth-btn">Login</button>
 </form>
