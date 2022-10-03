@@ -1,10 +1,12 @@
 const express = require('express');
+const { populateDb } = require('./utils/populateDb');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
 dotenv.config();
+populateDb();
 
 // View engine
 app.use('/static', express.static(__dirname + '/static'));

@@ -1,3 +1,3 @@
-$(window).load(function () {
-	$('body').removeClass('preload');
+addEventListener('DOMContentLoaded', function () {
+	document.querySelector('body').classList.remove('preload');
 });
