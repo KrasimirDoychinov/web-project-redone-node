@@ -3,7 +3,7 @@ const BaseThread = require('../models/BaseThread');
 const { createUser } = require('../services/userServices');
 const { createBaseThread } = require('../services/baseThreadServices');
 
-async function populateUsers() {
+const populateUsers = async function () {
 	if (!(await User.findOne({ name: 'admin' }))) {
 		console.log('Populating admin...');
 		await createUser('admin', 'test123');
@@ -15,16 +15,11 @@ async function populateUsers() {
 		await createUser('user', 'test123');
 		console.log('User populated!');
 	}
-}
+};
 
-async function populateBaseThreads() {
+const populateBaseThreads = async function () {
 	if (!(await BaseThread.find({})).length) {
 		console.log('Populating Base Threads...');
-		await createBaseThread(
-			'Other',
-			"This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.",
-			'https://cdn-www.swtor.com/sites/all/files/en/forums/forum_8.png'
-		);
 		await createBaseThread(
 			'Other',
 			"This is where you can talk about anything you want. It doesn't need to be just SWTOR or Star Wars. You can post about other games, cars, IT discussions, politics, and everything that can't be found on the other threads.",
@@ -52,12 +47,12 @@ async function populateBaseThreads() {
 		);
 		console.log('Base Threads populated!');
 	}
-}
+};
 
-async function populateDb() {
+const populateDb = async function () {
 	await populateUsers();
 	await populateBaseThreads();
-}
+};
 
 module.exports = {
 	populateDb,

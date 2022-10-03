@@ -1,2 +1,11 @@
-<h1>Hello!</h1>
-<p>Create the base threads and populate this screen</p>
+<ul id="base-threads">
+	<% data.baseThreads.forEach(x => { %>
+	<li>
+		<img src="<%= x.imageUrl %>" />
+		<div id="thread-info">
+			<a href=""> <h2><%= x.title %></h2></a>
+			<p><%= x.description %></p>
+		</div>
+	</li>
+	<% }); %>
+</ul>

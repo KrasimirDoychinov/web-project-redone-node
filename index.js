@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 // Middlewares
 app.use((req, res, next) => {
 	res.locals.data = {};
-	next();
+next();
 });
 app.use(bp.urlencoded({ extended: true }));
 app.use(bp.json());

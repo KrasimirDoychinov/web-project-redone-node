@@ -3,7 +3,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const { requiredFields } = require('../utils/consts');
 
-async function createUser(name, password) {
+const createUser = async function (name, password) {
 	const newUser = new User({
 		name,
 		password,
@@ -14,7 +14,8 @@ async function createUser(name, password) {
 
 	newUser.password = hash;
 	newUser.save().catch((err) => console.log(err));
-}
+};
+
 const registerUserService = async function (req, res) {
 	const { name, password, confirm } = req.body;
 	if (!name || !password || !confirm) {
