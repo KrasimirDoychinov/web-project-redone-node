@@ -3,6 +3,18 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const { requiredFields } = require('../utils/consts');
 
+async function createUser(name, password) {
+	const newUser = new User({
+		name,
+		password,
+	});
+
+	const salt = await bcrypt.genSalt(10);
+	const hash = await bcrypt.hash(newUser.password, salt);
+
+	newUser.password = hash;
+	newUser.save().catch((err) => console.log(err));
+}
 const registerUserService = async function (req, res) {
 	const { name, password, confirm } = req.body;
 	if (!name || !password || !confirm) {
@@ -37,19 +49,7 @@ const registerUserService = async function (req, res) {
 		return;
 	}
 
-	const newUser = new User({
-		name,
-		password,
-	});
-
-	const salt = await bcrypt.genSalt(10);
-	const hash = await bcrypt.hash(newUser.password, salt);
-
-	newUser.password = hash;
-	newUser
-		.save()
-		.then(res.redirect('/'))
-		.catch((err) => console.log(err));
+	await createUser(name, password);
 };
 
 const loginUserService = async function (req, res) {
@@ -96,4 +96,5 @@ const loginUserService = async function (req, res) {
 module.exports = {
 	registerUserService,
 	loginUserService,
+	createUser,
 };

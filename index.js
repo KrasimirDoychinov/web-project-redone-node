@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
 dotenv.config();
+
+// Checks and populates the DB with neede documents
 populateDb();
 
 // View engine
