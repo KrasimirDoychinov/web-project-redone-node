@@ -5,4 +5,37 @@
 	</h2>
 	<a href="/thread/create?baseId=<%= data.id %>" class="purple-btn">Be the first!</a>
 </divc>
+<% } else { %>
+  <div class="thread-container">
+    <div class="base-thread">
+      <div class="base-thread-heading">
+        <img src="<%= data.baseThread.imageUrl %> ">
+        <h1><%= data.baseThread.title %></h1>
+      </div>
+      <div class="base-thread-desc">
+        <p><%= data.baseThread.description %> </p>
+      </div>
+    </div> 
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th id="title-th">Title</th>
+            <th>Description</th>
+            <th>Replies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data.threads.forEach(thread => { %>
+            <tr>
+              <td class="clickable-td"><a href="/thread/<%= thread.id %>"><%= thread.title %></a></td>
+              <td><%= thread.description %></td>
+            </tr> 
+          </div>
+          <% }) %>
+        </tbody>
+      </table>
+      <a href="/thread/create?baseId=<%= data.baseThread.id %>" class="purple-btn new-thread-btn">Create new thread</a>
+    </div> 
+  </div>
 <% } %>

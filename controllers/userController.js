@@ -29,7 +29,7 @@ const loginUser = async function (req, res) {
 	const data = await loginUserService(name, password, req.session);
 
 	if (data.error) {
-		res.render('login', { data });
+		res.render('./auth/login', { data });
 		return;
 	}
 

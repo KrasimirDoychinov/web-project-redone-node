@@ -12,7 +12,7 @@ const createThread = async function (req, res) {
 	const data = await createThreadService(title, description, baseId, creatorId);
 
 	if (data.error) {
-		res.render('./thread/create');
+		res.render('./threads/create');
 		return;
 	}
 
