@@ -19,11 +19,12 @@ app.set('view engine', 'ejs');
 // Middlewares
 app.use((req, res, next) => {
 	res.locals.data = {};
-next();
+	next();
 });
 app.use(bp.urlencoded({ extended: true }));
 app.use(bp.json());
 app.use('/user', require('./routes/userRoutes'));
+app.use('/baseThread', require('./routes/baseThreadRoutes'));
 app.use('/', require('./routes/homeRoutes'));
 
 // Mongo DB connection

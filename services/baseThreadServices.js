@@ -10,6 +10,17 @@ const createBaseThread = function (title, description, imageUrl) {
 	newBaseThread.save().catch((err) => console.log(err));
 };
 
+const getBaseThreadById = async function (id) {
+	const baseThread = await BaseThread.findById(id);
+
+	if (!baseThread) {
+		return;
+	}
+
+	return baseThread;
+};
+
 module.exports = {
 	createBaseThread,
+	getBaseThreadById,
 };
