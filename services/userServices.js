@@ -1,7 +1,6 @@
-const { redirect } = require('../utils/utils');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-const { requiredFields } = require('../utils/consts');
+const { requiredFieldsMsg, internalErrorMsg } = require('../utils/consts');
 
 const createUser = async function (name, password) {
 	const newUser = new User({
@@ -13,85 +12,66 @@ const createUser = async function (name, password) {
 	const hash = await bcrypt.hash(newUser.password, salt);
 
 	newUser.password = hash;
-	newUser.save().catch((err) => console.log(err));
+	try {
+		await newUser.save();
+		return true;
+	} catch (error) {
+		return false;
+	}
 };
 
-const registerUserService = async function (req, res) {
-	const { name, password, confirm } = req.body;
+const registerUserService = async function (name, password, confirm) {
+	const data = { name, password, confirm, error: false };
 	if (!name || !password || !confirm) {
-		res.render('register', {
-			data: { name, password, confirm, generalErrMsg: requiredFields },
-		});
-		return;
+		data.error = true;
+		data.generalErrMsg = requiredFieldsMsg;
+		return data;
 	}
 
 	const user = await User.findOne({ name: name });
 	if (user) {
-		res.render('register', {
-			data: {
-				name,
-				password,
-				confirm,
-				generalErrMsg: 'User already exists with that name.',
-			},
-		});
-		return;
+		data.error = true;
+		data.generalErrMsg = 'User already exists with that name.';
+		return data;
 	}
 
 	if (password !== confirm) {
-		res.render('register', {
-			data: {
-				name,
-				password,
-				confirm,
-				confirmErrMsg: 'Both passwords must match.',
-			},
-		});
-		return;
+		data.error = true;
+		data.confirmErrMsg = 'Both passwords must match.';
+		return data;
 	}
 
-	await createUser(name, password);
+	if (!(await createUser(name, password))) {
+		data.error = true;
+		data.generalErrMsg = internalErrorMsg;
+	}
+	return data;
 };
 
-const loginUserService = async function (req, res) {
-	const { name, password } = req.body;
-
+const loginUserService = async function (name, password) {
+	const data = { name, password, error: false };
 	if (!name || !password) {
-		res.render('login', {
-			data: {
-				name,
-				password,
-				generalErrMsg: requiredFields,
-			},
-		});
+		data.error = true;
+		data.generalErrMsg = requiredFieldsMsg;
+		return data;
 	}
 
 	const foundUser = await User.findOne({ name: name });
 	if (!foundUser) {
-		res.render('login', {
-			data: {
-				name,
-				password,
-				nameErrMsg: "User with this name wasn't found.",
-			},
-		});
-		return;
+		data.error = true;
+		data.nameErrMsg = "User with this name wasn't found.";
+		return data;
 	}
 
 	const passwordsMatch = await bcrypt.compare(password, foundUser.password);
 	if (!passwordsMatch) {
-		res.render('login', {
-			data: {
-				name,
-				password,
-				passErrMsg: 'The password is incorrect.',
-			},
-		});
-		return;
+		data.error = true;
+		data.passErrMsg = 'The password is incorrect.';
+		return data;
 	}
 
 	console.log(`Successfuly login in ${foundUser.name}`);
-	redirect(res, 300, '/');
+	return data;
 };
 
 module.exports = {

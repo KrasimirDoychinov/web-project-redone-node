@@ -8,15 +8,31 @@ const registerView = function (req, res) {
 };
 
 const loginView = function (req, res) {
-	res.render('login', { name: '', password: '' });
+	res.render('login');
 };
 
 const registerUser = async function (req, res) {
-	await registerUserService(req, res);
+	const { name, password, confirm } = req.body;
+	const data = await registerUserService(name, password, confirm);
+
+	if (data.error) {
+		res.render('register', { data });
+		return;
+	}
+
+	res.redirect('/');
 };
 
 const loginUser = async function (req, res) {
-	await loginUserService(req, res);
+	const { name, password } = req.body;
+	const data = await loginUserService(name, password);
+
+	if (data.error) {
+		res.render('login', { data });
+		return;
+	}
+
+	res.redirect('/');
 };
 
 module.exports = {
