@@ -8,7 +8,7 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
-const { checkForSessionValue } = require('./services/sessionServices');
+const { isUserLoggedIn } = require('./services/sessionServices');
 dotenv.config();
 
 // Checks and populates the DB with neede documents
@@ -17,7 +17,7 @@ populateDb();
 // View engine
 app.use('/static', express.static(__dirname + '/static'));
 app.use(expressLayouts);
-app.set('layout', './layout.ejs');
+app.set('layout', './layout/layout.ejs');
 app.set('view engine', 'ejs');
 
 // Session
@@ -35,13 +35,14 @@ app.use(cookieParser());
 // Middlewares
 app.use((req, res, next) => {
 	res.locals.data = {};
-	res.locals.isLoggedIn = checkForSessionValue(req.session, 'user');
+	res.locals.isLoggedIn = isUserLoggedIn(req.session, 'user');
 	next();
 });
 app.use(bp.urlencoded({ extended: true }));
 app.use(bp.json());
 app.use('/user', require('./routes/userRoutes'));
 app.use('/baseThread', require('./routes/baseThreadRoutes'));
+app.use('/thread', require('./routes/threadRoutes'));
 app.use('/', require('./routes/homeRoutes'));
 
 // Mongo DB connection

@@ -6,7 +6,7 @@ const destroySession = function (session) {
 	session.destroy();
 };
 
-const checkForSessionValue = function (session, key) {
+const isUserLoggedIn = function (session, key) {
 	if (session[key]) {
 		return true;
 	}
@@ -14,8 +14,13 @@ const checkForSessionValue = function (session, key) {
 	return false;
 };
 
+const getUserId = function (session) {
+	return session.user.id;
+};
+
 module.exports = {
 	saveSessionUser,
 	destroySession,
-	checkForSessionValue,
+	isUserLoggedIn,
+	getUserId,
 };

@@ -5,11 +5,11 @@ const {
 } = require('../services/userServices');
 
 const registerView = function (req, res) {
-	res.render('register');
+	res.render('./auth/register');
 };
 
 const loginView = function (req, res) {
-	res.render('login');
+	res.render('./auth/login');
 };
 
 const registerUser = async function (req, res) {

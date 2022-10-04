@@ -1,0 +1,12 @@
+<form class="thread-create" action="create" method="post">
+	<div class="thread-create-data">
+		<label for="title">TITLE</label>
+		<input type="text" name="title" />
+	</div>
+	<div class="thread-create-data">
+		<label for="description">DESCRIPTION</label>
+		<textarea type="text" name="description" rows="15"></textarea>
+	</div>
+	<input type="text" hidden name="baseId" value="<%= data.baseId %>" />
+	<button type="submit" class="purple-btn">Create</button>
+</form>
