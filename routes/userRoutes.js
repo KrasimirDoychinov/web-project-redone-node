@@ -5,10 +5,12 @@ const {
 	loginView,
 	registerUser,
 	loginUser,
+	logoutUser,
 } = require('../controllers/userController');
 
 router.get('/register', registerView);
 router.get('/login', loginView);
+router.get('/logout', logoutUser);
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 module.exports = router;

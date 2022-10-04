@@ -1,1 +1,8 @@
-<h1><%= data.title %></h1>
+<% if (!data.threads) { %>
+<div class="no-threads">
+	<h2>
+		There are currently no <span class="purple"><%= data.title %></span> threads.
+	</h2>
+	<a class="purple-btn">Be the first!</a>
+</divc>
+<% } %>

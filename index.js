@@ -1,10 +1,14 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
+const sessions = require('express-session');
+
 const { populateDb } = require('./utils/populateDb');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
+const { checkForSessionValue } = require('./services/sessionServices');
 dotenv.config();
 
 // Checks and populates the DB with neede documents
@@ -16,9 +20,22 @@ app.use(expressLayouts);
 app.set('layout', './layout.ejs');
 app.set('view engine', 'ejs');
 
+// Session
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(
+	sessions({
+		secret: 'thisismysecrctekeyfhrgfgrfrty84fwir767',
+		saveUninitialized: true,
+		cookie: { maxAge: oneDay },
+		resave: false,
+	})
+);
+app.use(cookieParser());
+
 // Middlewares
 app.use((req, res, next) => {
 	res.locals.data = {};
+	res.locals.isLoggedIn = checkForSessionValue(req.session, 'user');
 	next();
 });
 app.use(bp.urlencoded({ extended: true }));

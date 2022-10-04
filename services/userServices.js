@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const { requiredFieldsMsg, internalErrorMsg } = require('../utils/consts');
+const { saveSessionUser } = require('./sessionServices');
 
 const createUser = async function (name, password) {
 	const newUser = new User({
@@ -48,7 +49,7 @@ const registerUserService = async function (name, password, confirm) {
 	return data;
 };
 
-const loginUserService = async function (name, password) {
+const loginUserService = async function (name, password, session) {
 	const data = { name, password, error: false };
 	if (!name || !password) {
 		data.error = true;
@@ -70,6 +71,7 @@ const loginUserService = async function (name, password) {
 		return data;
 	}
 
+	saveSessionUser(session, { name: foundUser.name, id: foundUser.id });
 	console.log(`Successfuly login in ${foundUser.name}`);
 	return data;
 };
