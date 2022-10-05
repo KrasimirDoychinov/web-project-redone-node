@@ -1,0 +1,16 @@
+<div class="thread-container">
+	<div class="thread-heading">
+		<img src="../../static/images/avatar-inquisitor.jpg" alt="" />
+		<h2><%= data.thread.title %></h2>
+	</div>
+	<div class="thread-main-post">
+		<div class="thread-main-post-heading">
+			<img src="<%= data.user.imageUrl %>" alt="" />
+			<h5><%= data.user.name %></h5>
+		</div>
+		<div class="thread-main-post-content">
+			<p><%= data.thread.description %></p>
+		</div>
+	</div>
+	<div class="thread-posts"></div>
+</div>

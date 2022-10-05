@@ -37,7 +37,13 @@ const getAllThreadsByBaseThread = async function (baseId) {
 	return data;
 };
 
+const getThreadById = async function (id) {
+	const data = await Thread.findById(id);
+	return data;
+};
+
 module.exports = {
 	createThreadService,
 	getAllThreadsByBaseThread,
+	getThreadById,
 };

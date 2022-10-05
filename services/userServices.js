@@ -71,7 +71,11 @@ const loginUserService = async function (name, password, session) {
 		return data;
 	}
 
-	saveSessionUser(session, { name: foundUser.name, id: foundUser.id });
+	saveSessionUser(session, {
+		name: foundUser.name,
+		id: foundUser.id,
+		imageUrl: foundUser.imageUrl,
+	});
 	console.log(`Successfuly login in ${foundUser.name}`);
 	return data;
 };

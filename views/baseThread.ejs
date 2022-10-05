@@ -1,7 +1,7 @@
-<% if (!data.threads) { %>
+<% if (data.threads.length == 0) { %>
 <div class="no-threads">
 	<h2>
-		There are currently no <span class="purple"><%= data.title %></span> threads.
+		There are currently no <span class="purple"><%= data.baseThread.title %></span> threads.
 	</h2>
 	<a href="/thread/create?baseId=<%= data.id %>" class="purple-btn">Be the first!</a>
 </divc>

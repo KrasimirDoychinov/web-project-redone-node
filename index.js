@@ -35,7 +35,9 @@ app.use(cookieParser());
 // Middlewares
 app.use((req, res, next) => {
 	res.locals.data = {};
-	res.locals.isLoggedIn = isUserLoggedIn(req.session, 'user');
+	res.locals.user = req.session['user'];
+	res.locals.isLoggedIn = res.locals.user !== undefined;
+	console.log(res.locals.user);
 	next();
 });
 app.use(bp.urlencoded({ extended: true }));
