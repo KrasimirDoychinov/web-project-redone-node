@@ -39,8 +39,8 @@
     </div> 
   </div>
   <% } %>
-  <% if (data.generalErrMsg) { %>
-    <p class="error"><%= data.generalErrMsg %></p>
+  <% if (data.error) { %>
+    <p class="error"><%= data.error %></p>
    <% } %>
   <form class="thread-create" action="/thread/create"  method="post">
     <div class="thread-create-data">

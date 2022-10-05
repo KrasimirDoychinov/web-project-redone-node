@@ -36,6 +36,8 @@ app.use((req, res, next) => {
 	res.locals.data = {};
 	res.locals.user = req.session['user'];
 	res.locals.isLoggedIn = res.locals.user !== undefined;
+	console.log(req.query);
+	res.locals.data.error = req.query.error;
 	next();
 });
 app.use(bp.urlencoded({ extended: true }));
