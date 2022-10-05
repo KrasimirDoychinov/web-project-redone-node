@@ -4,6 +4,18 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="../static/css/styles.css" />
+		<script
+			src="https://cdn.tiny.cloud/1/f72c5jvwgdg8wtlscs74a71b2llpy8uzs41bauaaibmi0ola/tinymce/6/tinymce.min.js"
+			referrerpolicy="origin"
+		></script>
+		<script>
+			tinymce.init({
+				selector: '.tinymce-textarea',
+				plugins: 'image link media',
+				toolbar:
+					'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+			});
+		</script>
 	</head>
 	<body class="preload">
 		<%- include('./header'); %>

@@ -1,4 +1,5 @@
 const Thread = require('../models/Thread');
+const sanitizeHtml = require('sanitize-html');
 const { requiredFieldsMsg, internalErrorMsg } = require('../utils/consts');
 
 const createThreadService = async function (
@@ -39,6 +40,14 @@ const getAllThreadsByBaseThread = async function (baseId) {
 
 const getThreadById = async function (id) {
 	const data = await Thread.findById(id);
+	data.description = sanitizeHtml(data.description, {
+		allowedTags: ['b', 'i', 'em', 'strong', 'a', 'iframe', 'img'],
+		allowedAttributes: {
+			a: ['href', 'name', 'target'],
+			iframe: ['title', 'src'],
+			img: ['src'],
+		},
+	});
 	return data;
 };
 
