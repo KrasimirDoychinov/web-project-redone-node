@@ -17,7 +17,7 @@ const registerUser = async function (req, res) {
 	const data = await registerUserService(name, password, confirm);
 
 	if (data.error) {
-		res.render('register', { data });
+		res.render('./auth/register', { data });
 		return;
 	}
 

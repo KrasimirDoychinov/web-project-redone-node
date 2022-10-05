@@ -18,6 +18,10 @@ const ThreadSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		createdOn: {
+			type: Date,
+			required: true,
+		},
 	},
 	{ collection: 'thread' }
 );

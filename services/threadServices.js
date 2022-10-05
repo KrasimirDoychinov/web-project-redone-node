@@ -20,6 +20,7 @@ const createThreadService = async function (
 		description,
 		baseThreadId,
 		creatorId,
+		createdOn: new Date(),
 	});
 
 	try {

@@ -3,7 +3,7 @@
 	<h2>
 		There are currently no <span class="purple"><%= data.baseThread.title %></span> threads.
 	</h2>
-	<a href="/thread/create?baseId=<%= data.id %>" class="purple-btn">Be the first!</a>
+	<a class="purple-btn new-thread-btn">Create new thread</a>
 </divc>
 <% } else { %>
   <div class="thread-container">
@@ -28,7 +28,7 @@
         <tbody>
           <% data.threads.forEach(thread => { %>
             <tr>
-              <td class="clickable-td"><a href="/thread/<%= thread.id %>"><%= thread.title %></a></td>
+              <td class="clickable-td"><a href="/thread/<%= thread.id %>"><%= thread.title %> <span class="thread-date"><%= thread.createdOn.toLocaleString() %></span></a></td>
               <td><%= thread.description %></td>
             </tr> 
           </div>
@@ -38,6 +38,10 @@
       <a  class="purple-btn new-thread-btn">Create new thread</a>
     </div> 
   </div>
+  <% } %>
+  <% if (data.generalErrMsg) { %>
+    <p class="error"><%= data.generalErrMsg %></p>
+   <% } %>
   <form class="thread-create" action="/thread/create"  method="post">
     <div class="thread-create-data">
       <label for="title">TITLE</label>
@@ -54,4 +58,3 @@
     <input type="text" hidden name="baseId" value="<%= data.baseThread.id %>" />
     <button type="submit" class="purple-btn">Create</button>
   </form>
-<% } %>
