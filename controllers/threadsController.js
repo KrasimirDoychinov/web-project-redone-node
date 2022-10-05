@@ -15,7 +15,7 @@ const createThread = async function (req, res) {
 	const data = await createThreadService(title, description, baseId, creatorId);
 
 	if (data.error) {
-		res.redirect(`/baseThread/${baseId}?err=${data.generalErrMsg}`);
+		res.redirect(`/baseThread/${baseId}?err=${data.error}`);
 		return;
 	}
 
@@ -25,7 +25,6 @@ const createThread = async function (req, res) {
 const threadView = async function (req, res) {
 	const thread = await getThreadById(req.params.id);
 	const user = req.session.user;
-	console.log(thread);
 	res.render('./threads/thread', { data: { thread, user } });
 };
 

@@ -6,7 +6,9 @@ const userConstrains = {
 };
 
 const threadConstraints = {
+	titleMinLength: 10,
 	titleMaxLength: 100,
+	descriptionMinLength: 10,
 	descriptionMaxLength: 20000,
 };
 

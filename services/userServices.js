@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const { requiredFieldsMsg, internalErrorMsg } = require('../utils/consts');
 const { saveSessionUser } = require('./sessionServices');
 const { userConstrains } = require('../utils/constraints');
+const { buildConstraintError } = require('./errorEngine');
 
 const createUser = async function (name, password) {
 	const newUser = new User({
@@ -44,7 +45,11 @@ const registerUserService = async function (name, password, confirm) {
 		name.length < userConstrains.nameMinLength ||
 		name.length > userConstrains.nameMaxLength
 	) {
-		data.error = `Name length must be bewteen ${userConstrains.nameMinLength} and ${userConstrains.nameMaxLength}.`;
+		data.error = buildConstraintError(
+			'Name',
+			userConstrains.nameMinLength,
+			userConstrains.nameMaxLength
+		);
 		return data;
 	}
 
@@ -52,7 +57,11 @@ const registerUserService = async function (name, password, confirm) {
 		password.length < userConstrains.passMinLength ||
 		password.length > userConstrains.passMaxLength
 	) {
-		data.error = `Password length must be between ${userConstrains.passMinLength} and ${userConstrains.passMaxLength}.`;
+		data.error = buildConstraintError(
+			'Password',
+			userConstrains.passMinLength,
+			userConstrains.passMaxLength
+		);
 		return data;
 	}
 

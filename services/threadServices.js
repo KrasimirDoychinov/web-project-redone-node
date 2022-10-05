@@ -1,6 +1,8 @@
 const Thread = require('../models/Thread');
 const sanitizeHtml = require('sanitize-html');
 const { requiredFieldsMsg, internalErrorMsg } = require('../utils/consts');
+const { threadConstraints } = require('../utils/constraints');
+const { buildConstraintError } = require('./errorEngine');
 
 const createThreadService = async function (
 	title,
@@ -10,8 +12,31 @@ const createThreadService = async function (
 ) {
 	const data = { error: false };
 	if (!title || !description || !baseThreadId || !creatorId) {
-		data.error = true;
-		data.generalErrMsg = requiredFieldsMsg;
+		data.error = requiredFieldsMsg;
+		return data;
+	}
+
+	if (
+		title.length < threadConstraints.titleMinLength ||
+		title.length > threadConstraints.titleMaxLength
+	) {
+		data.error = buildConstraintError(
+			'Title',
+			threadConstraints.titleMinLength,
+			threadConstraints.titleMaxLength
+		);
+		return data;
+	}
+
+	if (
+		description.length < threadConstraints.descriptionMinLength ||
+		description.length > threadConstraints.descriptionMaxLength
+	) {
+		data.error = buildConstraintError(
+			'Description',
+			threadConstraints.descriptionMinLength,
+			threadConstraints.descriptionMaxLength
+		);
 		return data;
 	}
 
@@ -26,8 +51,7 @@ const createThreadService = async function (
 	try {
 		await thread.save();
 	} catch (error) {
-		data.error = true;
-		data.generalErrMsg = internalErrorMsg;
+		data.error = internalErrorMsg;
 	}
 
 	return data;

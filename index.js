@@ -8,7 +8,6 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
-const { isUserLoggedIn } = require('./services/sessionServices');
 dotenv.config();
 
 // Checks and populates the DB with neede documents
@@ -37,7 +36,6 @@ app.use((req, res, next) => {
 	res.locals.data = {};
 	res.locals.user = req.session['user'];
 	res.locals.isLoggedIn = res.locals.user !== undefined;
-	console.log(res.locals.user);
 	next();
 });
 app.use(bp.urlencoded({ extended: true }));
