@@ -14,7 +14,11 @@ const ThreadSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		creatorId: {
+		creatorName: {
+			type: String,
+			required: true,
+		},
+		creatorImageUrl: {
 			type: String,
 			required: true,
 		},
@@ -23,7 +27,7 @@ const ThreadSchema = new mongoose.Schema(
 			required: true,
 		},
 	},
-	{ collection: 'thread' }
+	{ collection: 'threads' }
 );
 
 const Thread = mongoose.model('Thread', ThreadSchema);

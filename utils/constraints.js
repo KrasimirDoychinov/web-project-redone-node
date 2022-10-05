@@ -12,7 +12,13 @@ const threadConstraints = {
 	descriptionMaxLength: 20000,
 };
 
+const postConstraints = {
+	descriptionMinLength: 10,
+	descriptionMaxLengt: 20000,
+};
+
 module.exports = {
 	userConstrains,
 	threadConstraints,
+	postConstraints,
 };

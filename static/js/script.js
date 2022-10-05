@@ -14,8 +14,5 @@ document.querySelector('.new-thread-btn').addEventListener('click', (e) => {
 		e.currentTarget.innerHTML === 'Create new thread'
 			? 'Close'
 			: 'Create new thread';
-
-	console.log(threadCreateForm);
-	threadCreateForm.style.display =
-		threadCreateForm.style.display === '' ? 'flex' : '';
+	threadCreateForm.classList.toggle('active-thread');
 });

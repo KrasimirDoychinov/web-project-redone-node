@@ -36,7 +36,6 @@ app.use((req, res, next) => {
 	res.locals.data = {};
 	res.locals.user = req.session['user'];
 	res.locals.isLoggedIn = res.locals.user !== undefined;
-	console.log(req.query);
 	res.locals.data.error = req.query.error;
 	next();
 });
@@ -45,6 +44,7 @@ app.use(bp.json());
 app.use('/user', require('./routes/userRoutes'));
 app.use('/baseThread', require('./routes/baseThreadRoutes'));
 app.use('/thread', require('./routes/threadRoutes'));
+app.use('/post', require('./routes/postRoutes'));
 app.use('/', require('./routes/homeRoutes'));
 
 // Mongo DB connection

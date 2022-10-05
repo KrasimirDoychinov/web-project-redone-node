@@ -1,3 +1,4 @@
+const { getPostsByThreadId } = require('../services/postServices');
 const { getUserId } = require('../services/sessionServices');
 const {
 	createThreadService,
@@ -10,9 +11,9 @@ const createThreadView = function (req, res) {
 
 const createThread = async function (req, res) {
 	const { title, description, baseId } = req.body;
-	const creatorId = getUserId(req.session);
+	const creator = res.locals.user;
 
-	const data = await createThreadService(title, description, baseId, creatorId);
+	const data = await createThreadService(title, description, baseId, creator);
 
 	if (data.error) {
 		res.redirect(`/baseThread/${baseId}?error=${data.error}`);
@@ -24,8 +25,11 @@ const createThread = async function (req, res) {
 
 const threadView = async function (req, res) {
 	const thread = await getThreadById(req.params.id);
+	const posts = await getPostsByThreadId(req.params.id);
+
+	console.log(thread);
 	const user = req.session.user;
-	res.render('./threads/thread', { data: { thread, user } });
+	res.render('./threads/thread', { data: { thread, user, posts } });
 };
 
 module.exports = {

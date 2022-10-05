@@ -8,10 +8,10 @@ const createThreadService = async function (
 	title,
 	description,
 	baseThreadId,
-	creatorId
+	creator
 ) {
 	const data = { error: false };
-	if (!title || !description || !baseThreadId || !creatorId) {
+	if (!title || !description || !baseThreadId || !creator) {
 		data.error = requiredFieldsMsg;
 		return data;
 	}
@@ -44,7 +44,8 @@ const createThreadService = async function (
 		title,
 		description,
 		baseThreadId,
-		creatorId,
+		creatorImageUrl: creator.imageUrl,
+		creatorName: creator.name,
 		createdOn: new Date(),
 	});
 

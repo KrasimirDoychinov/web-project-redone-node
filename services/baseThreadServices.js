@@ -13,10 +13,6 @@ const createBaseThread = function (title, description, imageUrl) {
 const getBaseThreadById = async function (id) {
 	const baseThread = await BaseThread.findById(id);
 
-	if (!baseThread) {
-		return;
-	}
-
 	return baseThread;
 };
 
