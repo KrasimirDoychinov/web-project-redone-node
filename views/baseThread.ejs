@@ -35,7 +35,23 @@
           <% }) %>
         </tbody>
       </table>
-      <a href="/thread/create?baseId=<%= data.baseThread.id %>" class="purple-btn new-thread-btn">Create new thread</a>
+      <a  class="purple-btn new-thread-btn">Create new thread</a>
     </div> 
   </div>
+  <form class="thread-create" action="/thread/create"  method="post">
+    <div class="thread-create-data">
+      <label for="title">TITLE</label>
+      <input type="text" name="title" />
+    </div>
+    <div class="thread-create-data">
+      <label for="description">DESCRIPTION</label>
+      <textarea
+        type="text"
+        name="description"
+        rows="15"
+    ></textarea>
+    </div>
+    <input type="text" hidden name="baseId" value="<%= data.baseThread.id %>" />
+    <button type="submit" class="purple-btn">Create</button>
+  </form>
 <% } %>
