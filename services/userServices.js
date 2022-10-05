@@ -2,6 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const { requiredFieldsMsg, internalErrorMsg } = require('../utils/consts');
 const { saveSessionUser } = require('./sessionServices');
+const { userConstrains } = require('../utils/constraints');
 
 const createUser = async function (name, password) {
 	const newUser = new User({
@@ -36,6 +37,22 @@ const registerUserService = async function (name, password, confirm) {
 
 	if (password !== confirm) {
 		data.error = 'Both passwords must match.';
+		return data;
+	}
+
+	if (
+		name.length < userConstrains.nameMinLength ||
+		name.length > userConstrains.nameMaxLength
+	) {
+		data.error = `Name length must be bewteen ${userConstrains.nameMinLength} and ${userConstrains.nameMaxLength}.`;
+		return data;
+	}
+
+	if (
+		password.length < userConstrains.passMinLength ||
+		password.length > userConstrains.passMaxLength
+	) {
+		data.error = `Password length must be between ${userConstrains.passMinLength} and ${userConstrains.passMaxLength}.`;
 		return data;
 	}
 
