@@ -28,7 +28,7 @@
         <tbody>
           <% data.threads.forEach(thread => { %>
             <tr>
-              <td class="clickable-td"><a href="/thread/<%= thread.id %>"><%= thread.title %> <span class="thread-date gray">by <span class="red"><%= thread.creatorName %></span>, <%= thread.createdOn.toLocaleString() %>, <span class="red">views</span> <%= thread.views %></span></a></td>
+              <td class="clickable-td"><a href="/thread/<%= thread.id %>"><span class="thread-title"><%= thread.title %> <img src="<%= thread.creatorImageUrl %>" alt=""></span> <span class="thread-date gray">by <span class="red"><%= thread.creatorName %></span>, <%= thread.createdOn.toLocaleString() %>, <span class="red">views</span> <%= thread.views %></span></a></td>
             </tr> 
           </div>
           <% }) %>

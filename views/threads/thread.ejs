@@ -1,13 +1,16 @@
 <div class="thread-container">
 	<div class="thread-heading">
-		<img src="../../static/images/avatar-inquisitor.jpg" alt="" />
+		<img src="../../static/images/test.jpg" alt="" />
 		<h2><%= data.thread.title %></h2>
 		<p>on <%= data.thread.createdOn.toLocaleString() %></p>
 	</div>
 	<div class="thread-post border-gray">
 		<div class="thread-post-heading">
 			<img src="<%= data.thread.creatorImageUrl %>" alt="" />
-			<h5><%= data.thread.creatorName %></h5>
+			<div class="thread-post-heading-data gray">
+				<p class="red"><%= data.thread.creatorName %></p>
+				<p><%= data.thread.createdOn.toLocaleString() %></p>
+			</div>
 		</div>
 		<div class="thread-post-content">
 			<p><%- data.thread.description %></p>
@@ -16,10 +19,10 @@
 	<div class="thread-posts">
 		<% data.posts.forEach(post => { %>
 		<div class="thread-post">
-			<div class="thread-post-heading">
+			<div class="thread-post-heading gray">
 				<img src="<%= post.creatorImageUrl %>" alt="" />
 				<div class="thread-post-heading-data">
-					<p><%= post.creatorName %></p>
+					<p class="red"><%= post.creatorName %></p>
 					<p><%= post.createdOn.toLocaleString() %></p>
 				</div>
 			</div>
