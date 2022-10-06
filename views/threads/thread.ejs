@@ -2,8 +2,9 @@
 	<div class="thread-heading">
 		<img src="../../static/images/avatar-inquisitor.jpg" alt="" />
 		<h2><%= data.thread.title %></h2>
+		<p>on <%= data.thread.createdOn.toLocaleString() %></p>
 	</div>
-	<div class="thread-post border-purple">
+	<div class="thread-post border-gray">
 		<div class="thread-post-heading">
 			<img src="<%= data.thread.creatorImageUrl %>" alt="" />
 			<h5><%= data.thread.creatorName %></h5>
@@ -17,7 +18,10 @@
 		<div class="thread-post">
 			<div class="thread-post-heading">
 				<img src="<%= post.creatorImageUrl %>" alt="" />
-				<h5><%= post.creatorName %></h5>
+				<div class="thread-post-heading-data">
+					<p><%= post.creatorName %></p>
+					<p><%= post.createdOn.toLocaleString() %></p>
+				</div>
 			</div>
 			<div class="thread-post-content">
 				<p><%= post.description %></p>
@@ -28,7 +32,7 @@
 	<% if (data.error) { %>
 	<p class="error"><%= data.error %></p>
 	<% } %>
-	<a class="purple-btn new-thread-btn">Create post</a>
+	<a class="purple-btn new-thread-btn">Create new</a>
 	<form class="thread-create" action="/post/create" method="post">
 		<div class="thread-create-data">
 			<textarea type="text" name="description" rows="15"></textarea>

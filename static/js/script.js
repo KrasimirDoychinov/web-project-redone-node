@@ -11,8 +11,6 @@ document.querySelectorAll('.clickable-td').forEach((x) => {
 document.querySelector('.new-thread-btn').addEventListener('click', (e) => {
 	const threadCreateForm = document.querySelector('.thread-create');
 	e.currentTarget.innerHTML =
-		e.currentTarget.innerHTML === 'Create new thread'
-			? 'Close'
-			: 'Create new thread';
+		e.currentTarget.innerHTML === 'Create new' ? 'Close' : 'Create new';
 	threadCreateForm.classList.toggle('active-thread');
 });

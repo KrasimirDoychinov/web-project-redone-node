@@ -27,6 +27,7 @@ const createPostService = async function (description, threadId, creator) {
 		threadId,
 		creatorImageUrl: creator.imageUrl,
 		creatorName: creator.name,
+		createdOn: new Date(),
 	});
 
 	try {

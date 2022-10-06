@@ -18,6 +18,10 @@ const PostSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		createdOn: {
+			type: Date,
+			requird: true,
+		},
 	},
 	{ collection: 'posts' }
 );
