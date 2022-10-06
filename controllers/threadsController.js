@@ -1,8 +1,8 @@
 const { getPostsByThreadId } = require('../services/postServices');
-const { getUserId } = require('../services/sessionServices');
 const {
 	createThreadService,
 	getThreadById,
+	increaseViewCount,
 } = require('../services/threadServices');
 
 const createThreadView = function (req, res) {
@@ -26,8 +26,8 @@ const createThread = async function (req, res) {
 const threadView = async function (req, res) {
 	const thread = await getThreadById(req.params.id);
 	const posts = await getPostsByThreadId(req.params.id);
+	await increaseViewCount(thread.id);
 
-	console.log(thread);
 	const user = req.session.user;
 	res.render('./threads/thread', { data: { thread, user, posts } });
 };

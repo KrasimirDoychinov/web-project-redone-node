@@ -77,8 +77,15 @@ const getThreadById = async function (id) {
 	return data;
 };
 
+const increaseViewCount = async function (id) {
+	const thread = await getThreadById(id);
+	thread.views++;
+	await thread.save();
+};
+
 module.exports = {
 	createThreadService,
 	getAllThreadsByBaseThread,
 	getThreadById,
+	increaseViewCount,
 };

@@ -26,6 +26,10 @@ const ThreadSchema = new mongoose.Schema(
 			type: Date,
 			required: true,
 		},
+		views: {
+			type: Number,
+			default: 0,
+		},
 	},
 	{ collection: 'threads' }
 );
