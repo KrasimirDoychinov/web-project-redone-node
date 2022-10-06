@@ -16,6 +16,11 @@
         <p><%= data.baseThread.description %> </p>
       </div>
     </div> 
+    <div class="pagination">
+      <div class="pagination-prev pagination-btn"><a href="/baseThread/<%= data.baseThread.id %>?page=<%= data.page - 1%>">PREV</a></div>
+      <div class="pagination-pages"></div>
+      <div class="pagination-next pagination-btn"><a href="/baseThread/<%= data.baseThread.id %>?page=<%= data.page + 1 %>">NEXT</a></div>
+    </div> 
     <div class="table">
       <table>
         <thead>
@@ -35,7 +40,12 @@
         </tbody>
       </table>
       <a  class="purple-btn new-thread-btn">Create new</a>
-    </div> 
+    </div>
+    <div class="pagination">
+      <div class="pagination-prev pagination-btn"><a href="/baseThread/<%= data.baseThread.id %>?page=<%= data.page - 1%>">PREV</a></div>
+      <div class="pagination-pages"></div>
+      <div class="pagination-next pagination-btn"><a href="/baseThread/<%= data.baseThread.id %>?page=<%= data.page + 1 %>">NEXT</a></div>
+    </div>
   </div>
   <% } %>
   <% if (data.error) { %>

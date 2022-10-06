@@ -58,8 +58,13 @@ const createThreadService = async function (
 	return data;
 };
 
-const getAllThreadsByBaseThread = async function (baseId) {
-	const data = await Thread.find({ baseThreadId: baseId });
+const getAllThreadsByBaseThread = async function (baseId, page = 0) {
+	const skipAmmount = page * 5;
+	const data = await Thread.find({ baseThreadId: baseId })
+		.sort({
+			createdOn: 1,
+		})
+		.skip(skipAmmount);
 
 	return data;
 };
