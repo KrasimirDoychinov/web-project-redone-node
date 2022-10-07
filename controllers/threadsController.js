@@ -10,7 +10,7 @@ const createThreadView = function (req, res) {
 };
 
 const createThread = async function (req, res) {
-	const { title, description, baseId } = req.body;
+	const { title, description, baseId, page } = req.body;
 	const creator = res.locals.user;
 
 	const data = await createThreadService(title, description, baseId, creator);
@@ -20,7 +20,7 @@ const createThread = async function (req, res) {
 		return;
 	}
 
-	res.redirect(`/baseThread/${baseId}`);
+	res.redirect(`/baseThread/${baseId}?page=${page}`);
 };
 
 const threadView = async function (req, res) {

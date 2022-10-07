@@ -22,6 +22,10 @@ const PostSchema = new mongoose.Schema(
 			type: Date,
 			requird: true,
 		},
+		votes: {
+			type: Number,
+			default: 0,
+		},
 	},
 	{ collection: 'posts' }
 );

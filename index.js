@@ -39,14 +39,19 @@ app.use((req, res, next) => {
 	res.locals.data.error = req.query.error;
 	next();
 });
+
+app.use((req, res, next) => {
+	res.header('Cache-Control', 'no-store');
+	next();
+});
 app.use(bp.urlencoded({ extended: true }));
 app.use(bp.json());
 app.use('/user', require('./routes/userRoutes'));
 app.use('/baseThread', require('./routes/baseThreadRoutes'));
 app.use('/thread', require('./routes/threadRoutes'));
 app.use('/post', require('./routes/postRoutes'));
+app.use('/api', require('./routes/apiRoutes'));
 app.use('/', require('./routes/homeRoutes'));
-
 // Mongo DB connection
 const dbUri = process.env.MONGODB_URI;
 mongoose

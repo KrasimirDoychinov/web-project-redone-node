@@ -14,3 +14,18 @@ document.querySelector('.new-thread-btn').addEventListener('click', (e) => {
 		e.currentTarget.innerHTML === 'Create new' ? 'Close' : 'Create new';
 	threadCreateForm.classList.toggle('active-thread');
 });
+
+document.querySelector('.up').addEventListener('click', async (e) => {
+	const test = await fetch('http://localhost:3000/api/votes', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			postId: '633e9867e6b5f84ecf804e44',
+			voteType: 'upvote',
+		}),
+	});
+
+	console.log(test);
+});
