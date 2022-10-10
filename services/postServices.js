@@ -9,6 +9,15 @@ const getPostById = async function (id) {
 	return post;
 };
 
+const updateDescription = async function (postId, description) {
+	const post = await getPostById(postId);
+	post.description = description;
+
+	post.save().catch((error) => {
+		throw error;
+	});
+};
+
 const createPostService = async function (description, threadId, creator) {
 	const data = { description };
 	if (!description || !threadId || !creator) {
@@ -34,6 +43,7 @@ const createPostService = async function (description, threadId, creator) {
 		creator: {
 			name: creator.name,
 			imageUrl: creator.imageUrl,
+			id: creator.id,
 		},
 		createdOn: new Date(),
 	});
@@ -75,4 +85,5 @@ module.exports = {
 	getPostsByThreadId,
 	getPostById,
 	getVotes,
+	updateDescription,
 };

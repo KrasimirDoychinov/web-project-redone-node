@@ -1,3 +1,5 @@
+const host = 'http://localhost:3000/api/';
+
 addEventListener('DOMContentLoaded', function () {
 	document.querySelector('body').classList.remove('preload');
 });
@@ -18,11 +20,9 @@ document.querySelector('.new-thread-btn').addEventListener('click', (e) => {
 document.querySelectorAll('.vote').forEach((x) => {
 	x.addEventListener('click', async (e) => {
 		const type = e.currentTarget.dataset.type;
-		const container = e.currentTarget.parentElement.parentElement;
+		const container = e.currentTarget.parentElement.parentElement.parentElement;
 		const postId = container.dataset.id;
-		console.log(postId);
-		console.log(type);
-		const res = await fetch('http://localhost:3000/api/votes', {
+		const res = await fetch(`${host}/votes`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -34,45 +34,54 @@ document.querySelectorAll('.vote').forEach((x) => {
 		});
 
 		const data = await res.json();
+		if (!data.success) {
+			alert('There was an error');
+			return;
+		}
 		container.querySelector('#post-votes').innerHTML = data.newVotes;
 	});
 });
-// document.querySelectorAll('.up').forEach((x) => {
-// 	x.addEventListener('click', async (e) => {
-// 		const container = e.currentTarget.parentElement.parentElement;
-// 		const postId = container.dataset.id;
-// 		const res = await fetch('http://localhost:3000/api/votes', {
-// 			method: 'POST',
-// 			headers: {
-// 				'Content-Type': 'application/json',
-// 			},
-// 			body: JSON.stringify({
-// 				postId: postId,
-// 				voteType: 'upvote',
-// 			}),
-// 		});
 
-// 		const data = await res.json();
-// 		container.querySelector('#post-votes').innerHTML = data.newVotes;
-// 	});
-// });
+document.querySelectorAll('.edit-btn').forEach((x) => {
+	x.addEventListener('click', (e) => {
+		const container = e.currentTarget.parentElement.parentElement.parentElement;
+		const saveBtn = container.querySelector('.save-btn');
+		const textarea = container.parentElement.querySelector(
+			'.thread-post-content > textarea'
+		);
 
-// document.querySelectorAll('.down').forEach((x) => {
-// 	x.addEventListener('click', async (e) => {
-// 		const container = e.currentTarget.parentElement.parentElement;
-// 		const postId = container.dataset.id;
-// 		const res = await fetch('http://localhost:3000/api/votes', {
-// 			method: 'POST',
-// 			headers: {
-// 				'Content-Type': 'application/json',
-// 			},
-// 			body: JSON.stringify({
-// 				postId: postId,
-// 				voteType: 'downvote',
-// 			}),
-// 		});
+		textarea.disabled = textarea.disabled === true ? false : true;
+		e.currentTarget.innerHTML = textarea.disabled ? 'Edit' : 'Close';
+		saveBtn.classList.toggle('hidden');
+	});
+});
 
-// 		const data = await res.json();
-// 		container.querySelector('#post-votes').innerHTML = data.newVotes;
-// 	});
-// });
+document.querySelectorAll('.save-btn').forEach((x) => {
+	x.addEventListener('click', async (e) => {
+		const postId = e.currentTarget.dataset.id;
+		const container = e.currentTarget.parentElement.parentElement.parentElement;
+		const editBtn = container.querySelector('.edit-btn');
+		const textarea = container.parentElement.querySelector(
+			'.thread-post-content > textarea'
+		);
+		e.currentTarget.classList.toggle('hidden');
+
+		const res = await fetch(`${host}/updatePost`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				postId: postId,
+				description: textarea.value,
+			}),
+		});
+		const data = await res.json();
+		if (!data.success) {
+			alert('There was an error');
+			return;
+		}
+		textarea.disabled = textarea.disabled === true ? false : true;
+		editBtn.innerHTML = textarea.disabled ? 'Edit' : 'Close';
+	});
+});
