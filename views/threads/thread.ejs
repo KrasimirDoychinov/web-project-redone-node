@@ -19,14 +19,14 @@
 	<div class="thread-posts">
 		<% data.posts.forEach(post => { %>
 		<div class="thread-post">
-			<div class="thread-post-heading gray" data-id="<%= post.id %>">
+			<div class="thread-post-heading gray" data-id="<%= post._id %>">
 				<img src="<%= post.creator.imageUrl %>" alt="" />
 				<div class="thread-post-heading-data">
 					<p class="red"><%= post.creator.name %></p>
 					<p><%= post.createdOn.toLocaleString() %></p>
-					<i class="fas fa-chevron-up up"></i>
+					<i class="fas fa-chevron-up vote" data-type="upvote"></i>
 					<p id="post-votes"><%= post.votes %></p>
-					<i class="fas fa-chevron-down down"></i>
+					<i class="fas fa-chevron-down vote" data-type="downvote"></i>
 				</div>
 			</div>
 			<div class="thread-post-content">

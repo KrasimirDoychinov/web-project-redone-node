@@ -50,11 +50,29 @@ const createPostService = async function (description, threadId, creator) {
 
 const getPostsByThreadId = async function (threadId) {
 	const posts = await Post.find({ threadId: threadId });
-	return posts;
+	const result = [];
+
+	posts.forEach((post) => {
+		const postObj = { ...post._doc };
+		postObj.votes = getVotes(post);
+		console.log(postObj);
+		result.push(postObj);
+	});
+	return result;
+};
+
+const getVotes = function (post) {
+	const votes =
+		post.votes.filter((x) => x.type === 'upvote').length -
+		post.votes.filter((x) => x.type === 'downvote').length;
+
+	console.log(votes);
+	return votes;
 };
 
 module.exports = {
 	createPostService,
 	getPostsByThreadId,
 	getPostById,
+	getVotes,
 };

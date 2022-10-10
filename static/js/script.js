@@ -15,9 +15,13 @@ document.querySelector('.new-thread-btn').addEventListener('click', (e) => {
 	threadCreateForm.classList.toggle('active-thread');
 });
 
-document.querySelectorAll('.up').forEach((x) => {
+document.querySelectorAll('.vote').forEach((x) => {
 	x.addEventListener('click', async (e) => {
-		const postId = e.currentTarget.parentElement.parentElement.dataset.id;
+		const type = e.currentTarget.dataset.type;
+		const container = e.currentTarget.parentElement.parentElement;
+		const postId = container.dataset.id;
+		console.log(postId);
+		console.log(type);
 		const res = await fetch('http://localhost:3000/api/votes', {
 			method: 'POST',
 			headers: {
@@ -25,30 +29,50 @@ document.querySelectorAll('.up').forEach((x) => {
 			},
 			body: JSON.stringify({
 				postId: postId,
-				voteType: 'upvote',
+				voteType: type,
 			}),
 		});
 
 		const data = await res.json();
-		document.querySelector('#post-votes').innerHTML = data.newVotes;
+		container.querySelector('#post-votes').innerHTML = data.newVotes;
 	});
 });
+// document.querySelectorAll('.up').forEach((x) => {
+// 	x.addEventListener('click', async (e) => {
+// 		const container = e.currentTarget.parentElement.parentElement;
+// 		const postId = container.dataset.id;
+// 		const res = await fetch('http://localhost:3000/api/votes', {
+// 			method: 'POST',
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 			},
+// 			body: JSON.stringify({
+// 				postId: postId,
+// 				voteType: 'upvote',
+// 			}),
+// 		});
 
-document.querySelectorAll('.down').forEach((x) => {
-	x.addEventListener('click', async (e) => {
-		const postId = e.currentTarget.parentElement.parentElement.dataset.id;
-		const res = await fetch('http://localhost:3000/api/votes', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				postId: postId,
-				voteType: 'downvote',
-			}),
-		});
+// 		const data = await res.json();
+// 		container.querySelector('#post-votes').innerHTML = data.newVotes;
+// 	});
+// });
 
-		const data = await res.json();
-		document.querySelector('#post-votes').innerHTML = data.newVotes;
-	});
-});
+// document.querySelectorAll('.down').forEach((x) => {
+// 	x.addEventListener('click', async (e) => {
+// 		const container = e.currentTarget.parentElement.parentElement;
+// 		const postId = container.dataset.id;
+// 		const res = await fetch('http://localhost:3000/api/votes', {
+// 			method: 'POST',
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 			},
+// 			body: JSON.stringify({
+// 				postId: postId,
+// 				voteType: 'downvote',
+// 			}),
+// 		});
+
+// 		const data = await res.json();
+// 		container.querySelector('#post-votes').innerHTML = data.newVotes;
+// 	});
+// });
