@@ -15,17 +15,40 @@ document.querySelector('.new-thread-btn').addEventListener('click', (e) => {
 	threadCreateForm.classList.toggle('active-thread');
 });
 
-document.querySelector('.up').addEventListener('click', async (e) => {
-	const test = await fetch('http://localhost:3000/api/votes', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			postId: '633e9867e6b5f84ecf804e44',
-			voteType: 'upvote',
-		}),
-	});
+document.querySelectorAll('.up').forEach((x) => {
+	x.addEventListener('click', async (e) => {
+		const postId = e.currentTarget.parentElement.parentElement.dataset.id;
+		const res = await fetch('http://localhost:3000/api/votes', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				postId: postId,
+				voteType: 'upvote',
+			}),
+		});
 
-	console.log(test);
+		const data = await res.json();
+		document.querySelector('#post-votes').innerHTML = data.newVotes;
+	});
+});
+
+document.querySelectorAll('.down').forEach((x) => {
+	x.addEventListener('click', async (e) => {
+		const postId = e.currentTarget.parentElement.parentElement.dataset.id;
+		const res = await fetch('http://localhost:3000/api/votes', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				postId: postId,
+				voteType: 'downvote',
+			}),
+		});
+
+		const data = await res.json();
+		document.querySelector('#post-votes').innerHTML = data.newVotes;
+	});
 });

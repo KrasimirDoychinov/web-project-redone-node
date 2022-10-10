@@ -1,21 +1,33 @@
-const Post = require('../models/Post');
+const { getPostById } = require('./postServices');
 
-const vote = async function (postId, type) {
-	const post = await Post.findById(postId);
+const vote = async function (postId, userId, type) {
+	const post = await getPostById(postId);
+	const userVoted = post.votes.find((x) => x.id === userId);
 
-	switch (type) {
-		case 'upvote':
-			post.votes++;
-			break;
-		case 'downvote':
-			post.votes--;
-			break;
-		default:
-			break;
+	if (!userVoted) {
+		post.votes.push({ id: userId, type });
+		await post.save();
+		return getVotes(post);
 	}
 
-	await post.save();
-	return post.votes;
+	if (!userVoted || userVoted.type === type) {
+		return getVotes(post);
+	}
+
+	if (userVoted.type !== type) {
+		post.votes.find((x) => x.id === userId).type = type;
+		await post.save();
+		return getVotes(post);
+	}
+};
+
+const getVotes = function (post) {
+	const votes =
+		post.votes.filter((x) => x.type === 'upvote').length -
+		post.votes.filter((x) => x.type === 'downvote').length;
+
+	console.log(votes);
+	return votes;
 };
 
 module.exports = {

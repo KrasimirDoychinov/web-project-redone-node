@@ -24,10 +24,18 @@ const PostSchema = new mongoose.Schema(
 			type: Date,
 			requird: true,
 		},
-		votes: {
-			type: Number,
-			default: 0,
-		},
+		votes: [
+			{
+				id: {
+					type: String,
+					required: true,
+				},
+				type: {
+					type: String,
+					required: true,
+				},
+			},
+		],
 	},
 	{ collection: 'posts' }
 );

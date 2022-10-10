@@ -3,6 +3,12 @@ const { postConstraints } = require('../utils/constraints');
 const { requiredFieldsMsg } = require('../utils/consts');
 const { buildConstraintError } = require('./errorEngine');
 
+const getPostById = async function (id) {
+	const post = await Post.findById(id);
+
+	return post;
+};
+
 const createPostService = async function (description, threadId, creator) {
 	const data = { description };
 	if (!description || !threadId || !creator) {
@@ -44,11 +50,11 @@ const createPostService = async function (description, threadId, creator) {
 
 const getPostsByThreadId = async function (threadId) {
 	const posts = await Post.find({ threadId: threadId });
-
 	return posts;
 };
 
 module.exports = {
 	createPostService,
 	getPostsByThreadId,
+	getPostById,
 };

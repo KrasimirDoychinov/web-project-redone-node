@@ -2,12 +2,12 @@ const { vote } = require('../services/voteService');
 
 const votes = async function (req, res) {
 	const { postId, voteType } = req.body;
-	console.log('test');
+	const userId = res.locals.user.id;
 	try {
-		const newVotes = await vote(postId, voteType);
+		const newVotes = await vote(postId, userId, voteType);
 		res.send({ success: true, newVotes });
 	} catch (error) {
-		res.send({ success: false, erorr });
+		res.send({ success: false, error });
 	}
 };
 
