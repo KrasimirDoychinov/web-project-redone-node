@@ -44,8 +44,10 @@ const createThreadService = async function (
 		title,
 		description,
 		baseThreadId,
-		creatorImageUrl: creator.imageUrl,
-		creatorName: creator.name,
+		creator: {
+			name: creator.name,
+			imageUrl: creator.imageUrl,
+		},
 		createdOn: new Date(),
 	});
 

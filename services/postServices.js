@@ -25,8 +25,10 @@ const createPostService = async function (description, threadId, creator) {
 	const newPost = new Post({
 		description,
 		threadId,
-		creatorImageUrl: creator.imageUrl,
-		creatorName: creator.name,
+		creator: {
+			name: creator.name,
+			imageUrl: creator.imageUrl,
+		},
 		createdOn: new Date(),
 	});
 

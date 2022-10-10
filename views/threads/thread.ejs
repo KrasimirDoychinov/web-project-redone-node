@@ -6,7 +6,7 @@
 	</div>
 	<div class="thread-post border-gray">
 		<div class="thread-post-heading">
-			<img src="<%= data.thread.creatorImageUrl %>" alt="" />
+			<img src="<%= data.thread.creator.imageUrl %>" alt="" />
 			<div class="thread-post-heading-data gray">
 				<p class="red"><%= data.thread.creatorName %></p>
 				<p><%= data.thread.createdOn.toLocaleString() %></p>
@@ -22,9 +22,9 @@
 		<% data.posts.forEach(post => { %>
 		<div class="thread-post">
 			<div class="thread-post-heading gray">
-				<img src="<%= post.creatorImageUrl %>" alt="" />
+				<img src="<%= post.creator.imageUrl %>" alt="" />
 				<div class="thread-post-heading-data">
-					<p class="red"><%= post.creatorName %></p>
+					<p class="red"><%= post.creator.name %></p>
 					<p><%= post.createdOn.toLocaleString() %></p>
 				</div>
 			</div>

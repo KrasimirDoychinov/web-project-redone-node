@@ -6,13 +6,15 @@ const PostSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		creatorName: {
-			type: String,
-			required: true,
-		},
-		creatorImageUrl: {
-			type: String,
-			required: true,
+		creator: {
+			name: {
+				type: String,
+				required: true,
+			},
+			imageUrl: {
+				type: String,
+				required: true,
+			},
 		},
 		threadId: {
 			type: String,
