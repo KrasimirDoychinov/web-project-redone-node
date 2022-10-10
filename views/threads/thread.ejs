@@ -34,7 +34,7 @@
 		</div>
 	</div>
 	<div class="thread-posts">
-		<% data.posts.forEach(post => { %>
+		<% data.posts.forEach(post => {%>
 		<div class="thread-post">
 			<div class="thread-post-heading gray" data-id="<%= post._id %>">
 				<img src="<%= post.creator.imageUrl %>" alt="" />
@@ -51,6 +51,11 @@
 						>
 							Save
 						</button>
+						<a
+							href="/post/delete/<%= post._id %>?threadId=<%= data.thread.id %>"
+							class="red-btn"
+							>Delete</a
+						>
 						<% } %>
 					</div>
 					<div class="vote-container">

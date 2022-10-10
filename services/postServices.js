@@ -18,6 +18,10 @@ const updateDescription = async function (id, description) {
 	});
 };
 
+const deletePostService = async function (id) {
+	await Post.findByIdAndDelete(id);
+};
+
 const createPostService = async function (description, threadId, creator) {
 	const data = { description };
 	if (!description || !threadId || !creator) {
@@ -60,13 +64,15 @@ const createPostService = async function (description, threadId, creator) {
 
 const getPostsByThreadId = async function (threadId) {
 	const posts = await Post.find({ threadId: threadId });
-	const result = [];
+	let result = [];
 
 	posts.forEach((post) => {
 		const postObj = { ...post._doc };
 		postObj.votes = getVotes(post);
 		result.push(postObj);
 	});
+
+	result = result.sort((a, b) => b.votes - a.votes);
 	return result;
 };
 
@@ -84,4 +90,5 @@ module.exports = {
 	getPostById,
 	getVotes,
 	updateDescription,
+	deletePostService,
 };
