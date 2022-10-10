@@ -4,6 +4,27 @@ const { requiredFieldsMsg, internalErrorMsg } = require('../utils/consts');
 const { threadConstraints } = require('../utils/constraints');
 const { buildConstraintError } = require('./errorEngine');
 
+const getThreadById = async function (id) {
+	const data = await Thread.findById(id);
+	data.description = sanitizeHtml(data.description, {
+		allowedTags: ['b', 'i', 'em', 'strong', 'a', 'iframe', 'img'],
+		allowedAttributes: {
+			a: ['href', 'name', 'target'],
+			iframe: ['title', 'src'],
+			img: ['src'],
+		},
+	});
+	return data;
+};
+
+const updateThreadDescription = async function (id, description) {
+	const thread = await getThreadById(id);
+	thread.description = description;
+
+	thread.save().catch((error) => {
+		throw error;
+	});
+};
 const createThreadService = async function (
 	title,
 	description,
@@ -47,6 +68,7 @@ const createThreadService = async function (
 		creator: {
 			name: creator.name,
 			imageUrl: creator.imageUrl,
+			id: creator.id,
 		},
 		createdOn: new Date(),
 	});
@@ -72,19 +94,6 @@ const getAllThreadsByBaseThread = async function (baseId, page = 0) {
 	return data;
 };
 
-const getThreadById = async function (id) {
-	const data = await Thread.findById(id);
-	data.description = sanitizeHtml(data.description, {
-		allowedTags: ['b', 'i', 'em', 'strong', 'a', 'iframe', 'img'],
-		allowedAttributes: {
-			a: ['href', 'name', 'target'],
-			iframe: ['title', 'src'],
-			img: ['src'],
-		},
-	});
-	return data;
-};
-
 const increaseViewCount = async function (id) {
 	const thread = await getThreadById(id);
 	thread.views++;
@@ -96,4 +105,5 @@ module.exports = {
 	getAllThreadsByBaseThread,
 	getThreadById,
 	increaseViewCount,
+	updateThreadDescription,
 };

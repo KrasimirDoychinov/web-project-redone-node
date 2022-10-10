@@ -4,6 +4,9 @@
 		<h2><%= data.thread.title %></h2>
 		<p>on <%= data.thread.createdOn.toLocaleString() %></p>
 	</div>
+	<% if (data.error) { %>
+	<p class="error"><%= data.error %></p>
+	<% } %>
 	<div class="thread-post border-gray">
 		<div class="thread-post-heading" data-id="<%= data.thread.id %>">
 			<img src="<%= data.thread.creator.imageUrl %>" alt="" />
@@ -11,11 +14,23 @@
 				<div class="heading-info">
 					<p class="red"><%= data.thread.creator.name %></p>
 					<p><%= data.thread.createdOn.toLocaleString() %></p>
+					<% if (data.thread.creator.id === data.user.id) { %>
+					<button class="edit-btn">Edit</button>
+					<button
+						class="save-btn hidden"
+						data-id="<%= data.thread.id %>"
+						data-endpoint="updateThread"
+					>
+						Save
+					</button>
+					<% } %>
 				</div>
 			</div>
 		</div>
 		<div class="thread-post-content">
-			<p><%- data.thread.description %></p>
+			<textarea disabled class="description">
+<%= data.thread.description %></textarea
+			>
 		</div>
 	</div>
 	<div class="thread-posts">
@@ -29,7 +44,11 @@
 						<p><%= post.createdOn.toLocaleString() %></p>
 						<% if (post.creator.id === data.user.id) { %>
 						<button class="edit-btn">Edit</button>
-						<button class="save-btn hidden" data-id="<%= post._id %>">
+						<button
+							class="save-btn hidden"
+							data-id="<%= post._id %>"
+							data-endpoint="updatePost"
+						>
 							Save
 						</button>
 						<% } %>

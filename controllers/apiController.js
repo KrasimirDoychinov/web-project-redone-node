@@ -1,4 +1,5 @@
 const { getVotes, updateDescription } = require('../services/postServices');
+const { updateThreadDescription } = require('../services/threadServices');
 const { vote } = require('../services/voteService');
 
 const votes = async function (req, res) {
@@ -14,9 +15,19 @@ const votes = async function (req, res) {
 };
 
 const updatePost = async function (req, res) {
-	const { postId, description } = req.body;
+	const { id, description } = req.body;
 	try {
-		await updateDescription(postId, description);
+		await updateDescription(id, description);
+		res.send({ success: true });
+	} catch (error) {
+		res.send({ success: false, error });
+	}
+};
+
+const updateThread = async function (req, res) {
+	const { id, description } = req.body;
+	try {
+		await updateThreadDescription(id, description);
 		res.send({ success: true });
 	} catch (error) {
 		res.send({ success: false, error });
@@ -26,4 +37,5 @@ const updatePost = async function (req, res) {
 module.exports = {
 	votes,
 	updatePost,
+	updateThread,
 };

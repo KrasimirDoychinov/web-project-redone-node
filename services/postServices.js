@@ -9,8 +9,8 @@ const getPostById = async function (id) {
 	return post;
 };
 
-const updateDescription = async function (postId, description) {
-	const post = await getPostById(postId);
+const updateDescription = async function (id, description) {
+	const post = await getPostById(id);
 	post.description = description;
 
 	post.save().catch((error) => {
@@ -65,7 +65,6 @@ const getPostsByThreadId = async function (threadId) {
 	posts.forEach((post) => {
 		const postObj = { ...post._doc };
 		postObj.votes = getVotes(post);
-		console.log(postObj);
 		result.push(postObj);
 	});
 	return result;
@@ -76,7 +75,6 @@ const getVotes = function (post) {
 		post.votes.filter((x) => x.type === 'upvote').length -
 		post.votes.filter((x) => x.type === 'downvote').length;
 
-	console.log(votes);
 	return votes;
 };
 

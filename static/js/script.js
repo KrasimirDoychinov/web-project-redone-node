@@ -58,21 +58,22 @@ document.querySelectorAll('.edit-btn').forEach((x) => {
 
 document.querySelectorAll('.save-btn').forEach((x) => {
 	x.addEventListener('click', async (e) => {
-		const postId = e.currentTarget.dataset.id;
+		const id = e.currentTarget.dataset.id;
 		const container = e.currentTarget.parentElement.parentElement.parentElement;
 		const editBtn = container.querySelector('.edit-btn');
 		const textarea = container.parentElement.querySelector(
 			'.thread-post-content > textarea'
 		);
-		e.currentTarget.classList.toggle('hidden');
 
-		const res = await fetch(`${host}/updatePost`, {
+		const endpoint = e.currentTarget.dataset.endpoint;
+		e.currentTarget.classList.toggle('hidden');
+		const res = await fetch(`${host}/${endpoint}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				postId: postId,
+				id: id,
 				description: textarea.value,
 			}),
 		});
