@@ -54,7 +54,6 @@ const populateBaseThreads = async function () {
 
 const populateNews = async function () {
 	const data = await scrapeNews();
-	console.log(data);
 	const uniqueData = await getUnique(data);
 	await News.insertMany(uniqueData);
 };

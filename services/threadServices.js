@@ -18,6 +18,12 @@ const getThreadById = async function (id) {
 	return data;
 };
 
+const getThreadsByMostViews = async function () {
+	const threads = await Thread.find({}).sort({ views: -1 }).limit(10);
+
+	return threads;
+};
+
 const updateThreadDescription = async function (id, description) {
 	const thread = await getThreadById(id);
 	thread.description = description;
@@ -114,4 +120,5 @@ module.exports = {
 	increaseViewCount,
 	updateThreadDescription,
 	deleteThreadById,
+	getThreadsByMostViews,
 };

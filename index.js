@@ -10,6 +10,7 @@ const dotenv = require('dotenv');
 const bp = require('body-parser');
 const { scrape } = require('./services/scrapeServices');
 const { getNews } = require('./services/newsServices');
+const { getThreadsByMostViews } = require('./services/threadServices');
 dotenv.config();
 
 // Checks and populates the DB with neede documents
@@ -38,6 +39,7 @@ app.use(async (req, res, next) => {
 	res.locals.data = {};
 	res.locals.user = req.session['user'];
 	res.locals.news = await getNews();
+	res.locals.hottest = await getThreadsByMostViews();
 	res.locals.isLoggedIn = res.locals.user !== undefined;
 	res.locals.data.error = req.query.error;
 	next();
