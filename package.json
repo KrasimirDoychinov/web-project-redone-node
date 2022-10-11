@@ -22,6 +22,7 @@
     "express-session": "^1.17.3",
     "jquery": "^3.6.1",
     "mongoose": "^6.6.2",
+    "puppeteer": "^18.2.1",
     "sanitize-html": "^2.7.2"
   },
   "devDependencies": {

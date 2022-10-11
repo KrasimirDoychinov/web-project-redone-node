@@ -8,6 +8,7 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
+const { scrape } = require('./services/scrapeServices');
 dotenv.config();
 
 // Checks and populates the DB with neede documents
