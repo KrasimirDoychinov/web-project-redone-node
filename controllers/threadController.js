@@ -37,7 +37,7 @@ const deleteThread = async function (req, res) {
 	const threadId = req.params.id;
 	const { baseId } = req.query;
 	await deleteThreadById(threadId);
-	res.redirect(`/baseThread/${baseId}`);
+	res.redirect(`/baseThread/${baseId}?page=0`);
 };
 
 module.exports = {

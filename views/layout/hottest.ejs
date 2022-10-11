@@ -1,9 +1,8 @@
 <% if (user !== undefined) { %>
-
 <div class="hottest">
 	<% hottest.forEach(x => { %>
 	<div class="hottest-element">
-		<a href="/thread/<%= x.id %>" target="_blank"><%= x.title.trim() %></a>
+		<a href="/thread/<%= x.id %>"><%= x.title.trim() %></a>
 		<p><%= x.createdOn.toLocaleString().split(', ')[0] %></p>
 		<p><%= x.views %> views</p>
 		<p class="hottest-name"><%= x.creator.name %></p>

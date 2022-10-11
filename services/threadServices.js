@@ -96,7 +96,7 @@ const createThreadService = async function (
 };
 
 const getAllThreadsByBaseThread = async function (baseId, page = 0) {
-	const skipAmmount = page * 10;
+	const skipAmmount = page * 9;
 	const data = await Thread.find({ baseThreadId: baseId })
 		.sort({
 			createdOn: 1,
