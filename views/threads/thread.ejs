@@ -23,6 +23,15 @@
 					>
 						Save
 					</button>
+					<a class="red-btn delete-btn">Delete</a>
+					<div class="agree-container hidden">
+						<p>Are you sure you want to delete this post?</p>
+						<a
+							href="/thread/delete/<%= data.thread.id %>?baseId=<%= data.thread.baseThreadId %>"
+							class="agree red-btn"
+							>Yes</a
+						>
+					</div>
 					<% } %>
 				</div>
 			</div>
@@ -51,11 +60,15 @@
 						>
 							Save
 						</button>
-						<a
-							href="/post/delete/<%= post._id %>?threadId=<%= data.thread.id %>"
-							class="red-btn"
-							>Delete</a
-						>
+						<a class="red-btn delete-btn">Delete</a>
+						<div class="agree-container hidden">
+							<p>Are you sure you want to delete this post?</p>
+							<a
+								href="/post/delete/<%= post._id %>?threadId=<%= data.thread.id %>"
+								class="agree red-btn"
+								>Yes</a
+							>
+						</div>
 						<% } %>
 					</div>
 					<div class="vote-container">

@@ -22,6 +22,10 @@ const deletePostService = async function (id) {
 	await Post.findByIdAndDelete(id);
 };
 
+const deletePostsByThreadId = async function (threadId) {
+	await Post.deleteMany({ threadId: threadId });
+};
+
 const createPostService = async function (description, threadId, creator) {
 	const data = { description };
 	if (!description || !threadId || !creator) {
@@ -91,4 +95,5 @@ module.exports = {
 	getVotes,
 	updateDescription,
 	deletePostService,
+	deletePostsByThreadId,
 };

@@ -3,6 +3,7 @@ const sanitizeHtml = require('sanitize-html');
 const { requiredFieldsMsg, internalErrorMsg } = require('../utils/consts');
 const { threadConstraints } = require('../utils/constraints');
 const { buildConstraintError } = require('./errorEngine');
+const { deletePostsByThreadId } = require('./postServices');
 
 const getThreadById = async function (id) {
 	const data = await Thread.findById(id);
@@ -25,6 +26,12 @@ const updateThreadDescription = async function (id, description) {
 		throw error;
 	});
 };
+
+const deleteThreadById = async function (id) {
+	await deletePostsByThreadId(id);
+	await Thread.findByIdAndDelete(id);
+};
+
 const createThreadService = async function (
 	title,
 	description,
@@ -106,4 +113,5 @@ module.exports = {
 	getThreadById,
 	increaseViewCount,
 	updateThreadDescription,
+	deleteThreadById,
 };

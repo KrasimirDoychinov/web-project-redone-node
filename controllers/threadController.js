@@ -3,6 +3,7 @@ const {
 	createThreadService,
 	getThreadById,
 	increaseViewCount,
+	deleteThreadById,
 } = require('../services/threadServices');
 
 const createThreadView = function (req, res) {
@@ -32,8 +33,16 @@ const threadView = async function (req, res) {
 	res.render('./threads/thread', { data: { thread, user, posts } });
 };
 
+const deleteThread = async function (req, res) {
+	const threadId = req.params.id;
+	const { baseId } = req.query;
+	await deleteThreadById(threadId);
+	res.redirect(`/baseThread/${baseId}`);
+};
+
 module.exports = {
 	createThreadView,
 	createThread,
 	threadView,
+	deleteThread,
 };

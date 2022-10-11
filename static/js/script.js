@@ -86,3 +86,15 @@ document.querySelectorAll('.save-btn').forEach((x) => {
 		editBtn.innerHTML = textarea.disabled ? 'Edit' : 'Close';
 	});
 });
+
+document.querySelectorAll('.delete-btn').forEach((x) => {
+	x.addEventListener('click', (e) => {
+		const container =
+			e.currentTarget.parentElement.querySelector('.agree-container');
+
+		container.classList.toggle('hidden');
+		e.currentTarget.innerHTML = container.classList.contains('hidden')
+			? 'Delete'
+			: 'Close';
+	});
+});
