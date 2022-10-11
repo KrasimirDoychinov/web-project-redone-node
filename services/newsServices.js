@@ -12,6 +12,13 @@ const getUnique = async function (data) {
 	return result;
 };
 
+const getNews = async function () {
+	const news = await News.find({}).sort({ time: -1 }).limit(10);
+
+	return news;
+};
+
 module.exports = {
 	getUnique,
+	getNews,
 };

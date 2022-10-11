@@ -18,6 +18,13 @@ const scrapeNews = async function () {
 				i * 2
 			}) > div > ul > li:nth-child(1) > a > time`
 		);
+
+		const nameElement = await page.waitForSelector(
+			`#ipsLayout_mainArea > section > div:nth-child(3) > div > div > ol.ipsStream.ipsStream_withTimeline.ipsList_reset > li:nth-child(${
+				i * 2
+			}) > div > div.ipsStreamItem_header.ipsPhotoPanel.ipsPhotoPanel_mini > div > p > a:nth-child(1) > font`
+		);
+
 		const link = await page.evaluate((element) => element.href, element);
 		const title = await page.evaluate(
 			(element) => element.textContent,
@@ -27,8 +34,12 @@ const scrapeNews = async function () {
 			(dateElement) => dateElement.title,
 			dateElement
 		);
+		const name = await page.evaluate(
+			(nameElement) => nameElement.textContent,
+			nameElement
+		);
 
-		result.push({ title, link, time });
+		result.push({ title, link, time, name });
 	}
 
 	browser.close();

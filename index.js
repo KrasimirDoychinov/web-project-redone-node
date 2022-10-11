@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
 const { scrape } = require('./services/scrapeServices');
+const { getNews } = require('./services/newsServices');
 dotenv.config();
 
 // Checks and populates the DB with neede documents
@@ -33,9 +34,10 @@ app.use(
 app.use(cookieParser());
 
 // Middlewares
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
 	res.locals.data = {};
 	res.locals.user = req.session['user'];
+	res.locals.news = await getNews();
 	res.locals.isLoggedIn = res.locals.user !== undefined;
 	res.locals.data.error = req.query.error;
 	next();

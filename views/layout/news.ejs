@@ -1,0 +1,12 @@
+<% if (user !== undefined) { %>
+
+<div class="news">
+	<% news.forEach(x => { %>
+	<div class="news-element">
+		<a href="<%= x.link %>" target="_blank"><%= x.title.trim() %></a>
+		<p><%= x.time.toLocaleString().split(', ')[0] %></p>
+		<p class="scraped-name"><%= x.name %></p>
+	</div>
+	<% }) %>
+</div>
+<% } %>

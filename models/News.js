@@ -14,6 +14,10 @@ const NewsSchema = new mongoose.Schema(
 			type: Date,
 			required: true,
 		},
+		name: {
+			type: String,
+			required: true,
+		},
 	},
 	{ collection: 'news' }
 );
