@@ -37,8 +37,9 @@
 			</div>
 		</div>
 		<div class="thread-post-content">
-			<textarea disabled class="description">
-<%= data.thread.description %></textarea
+			<div class="description"><%- data.thread.description %></div>
+			<textarea disabled class="description tinymce" id="test">
+				<%= data.thread.description %></textarea
 			>
 		</div>
 	</div>

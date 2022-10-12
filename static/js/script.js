@@ -57,11 +57,18 @@ document.querySelectorAll('.edit-btn').forEach((x) => {
 		const container = e.currentTarget.parentElement.parentElement.parentElement;
 		const saveBtn = container.querySelector('.save-btn');
 		const textarea = container.parentElement.querySelector(
-			'.thread-post-content > textarea'
+			'.thread-post-content > .description'
 		);
 
-		textarea.disabled = textarea.disabled === true ? false : true;
-		e.currentTarget.innerHTML = textarea.disabled ? 'Edit' : 'Close';
+		const tinyMceTextArea = container.parentElement.querySelector(
+			'.thread-post-content .tox-tinymce'
+		);
+
+		textarea.classList.toggle('hidden');
+		tinyMceTextArea.classList.toggle('show-tinymce');
+		e.currentTarget.innerHTML = !textarea.classList.contains('hidden')
+			? 'Edit'
+			: 'Close';
 		saveBtn.classList.toggle('hidden');
 	});
 });
@@ -72,8 +79,19 @@ document.querySelectorAll('.save-btn').forEach((x) => {
 		const container = e.currentTarget.parentElement.parentElement.parentElement;
 		const editBtn = container.querySelector('.edit-btn');
 		const textarea = container.parentElement.querySelector(
-			'.thread-post-content > textarea'
+			'.thread-post-content > .description'
 		);
+
+		console.log(textarea);
+		const tinyMce = container.parentElement.querySelector(
+			'.thread-post-content .tox-tinymce'
+		);
+
+		const tinyMceTextarea = container.parentElement.querySelector(
+			'.thread-post-content .tinymce'
+		);
+
+		const tinyMceTextareaValue = tinymce.get(tinyMceTextarea.id).getContent();
 
 		const endpoint = e.currentTarget.dataset.endpoint;
 		e.currentTarget.classList.toggle('hidden');
@@ -84,16 +102,21 @@ document.querySelectorAll('.save-btn').forEach((x) => {
 			},
 			body: JSON.stringify({
 				id: id,
-				description: textarea.value,
+				description: tinyMceTextareaValue,
 			}),
 		});
+
 		const data = await res.json();
 		if (!data.success) {
 			alert('There was an error');
 			return;
 		}
-		textarea.disabled = textarea.disabled === true ? false : true;
-		editBtn.innerHTML = textarea.disabled ? 'Edit' : 'Close';
+		textarea.classList.toggle('hidden');
+		tinyMce.classList.toggle('show-tinymce');
+		textarea.innerHTML = `${tinyMceTextareaValue}`;
+		editBtn.innerHTML = !textarea.classList.contains('hidden')
+			? 'Edit'
+			: 'Close';
 	});
 });
 
