@@ -7,6 +7,7 @@
 	<% if (data.error) { %>
 	<p class="error"><%= data.error %></p>
 	<% } %>
+
 	<div class="thread-post border-gray">
 		<div class="thread-post-heading" data-id="<%= data.thread.id %>">
 			<img src="<%= data.thread.creator.imageUrl %>" alt="" />
@@ -92,10 +93,33 @@
 		</div>
 		<% }) %>
 	</div>
+	<div class="pagination">
+		<% if (data.page === 0) { %>
+		<div class="pagination-prev pagination-btn disabled-btn">
+			<a href="/thread/<%= data.thread.id %>?page=<%= +data.page - 1%>">PREV</a>
+		</div>
+		<% } else { %>
+		<div class="pagination-prev pagination-btn">
+			<a href="/thread/<%= data.thread.id %>?page=<%= +data.page - 1%>">PREV</a>
+		</div>
+		<% } %> <% if (data.posts.length < 10) { %>
+		<div class="pagination-next pagination-btn disabled-btn">
+			<a href="/thread/<%= data.thread.id %>?page=<%= +data.page + 1  %>"
+				>NEXT</a
+			>
+		</div>
+		<% } else { %>
+		<div class="pagination-next pagination-btn">
+			<a href="/thread/<%= data.thread.id %>?page=<%= +data.page + 1  %>"
+				>NEXT</a
+			>
+		</div>
+		<% } %>
+	</div>
 	<% if (data.error) { %>
 	<p class="error"><%= data.error %></p>
 	<% } %>
-	<a class="purple-btn new-thread-btn">Create new</a>
+	<a class="purple-btn create-new-btn">Create new</a>
 	<form class="thread-create" action="/post/create" method="post">
 		<div class="thread-create-data">
 			<textarea

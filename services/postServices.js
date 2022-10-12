@@ -66,8 +66,13 @@ const createPostService = async function (description, threadId, creator) {
 	return data;
 };
 
-const getPostsByThreadId = async function (threadId) {
-	const posts = await Post.find({ threadId: threadId });
+const getPostsByThreadId = async function (threadId, page) {
+	console.log(page);
+	const skipAmmount = page * 9;
+	const posts = await Post.find({ threadId: threadId })
+		.sort({ createdOn: 1 })
+		.skip(skipAmmount)
+		.limit(10);
 	let result = [];
 
 	posts.forEach((post) => {

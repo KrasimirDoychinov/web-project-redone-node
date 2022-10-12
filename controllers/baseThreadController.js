@@ -9,7 +9,7 @@ const baseThreadByIdView = async function (req, res) {
 	);
 
 	res.render('baseThread', {
-		data: { ...res.locals.data, threads, baseThread, page: req.query.page },
+		data: { ...res.locals.data, threads, baseThread, page: +req.query.page },
 	});
 };
 

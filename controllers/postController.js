@@ -13,7 +13,7 @@ const createPost = async function (req, res) {
 		return;
 	}
 
-	res.redirect(`/thread/${threadId}`);
+	res.redirect(`/thread/${threadId}?page=0`);
 };
 
 const deletePost = async function (req, res) {
@@ -23,6 +23,7 @@ const deletePost = async function (req, res) {
 	await deletePostService(postId);
 	res.redirect(`/thread/${threadId}`);
 };
+
 module.exports = {
 	createPost,
 	deletePost,

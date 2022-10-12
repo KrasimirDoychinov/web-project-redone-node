@@ -17,7 +17,7 @@ const createThread = async function (req, res) {
 	const data = await createThreadService(title, description, baseId, creator);
 
 	if (data.error) {
-		res.redirect(`/baseThread/${baseId}?error=${data.error}`);
+		res.redirect(`/baseThread/${baseId}?error=${data.error}&page=${page}`);
 		return;
 	}
 
@@ -25,12 +25,15 @@ const createThread = async function (req, res) {
 };
 
 const threadView = async function (req, res) {
+	const { page } = req.query;
 	const thread = await getThreadById(req.params.id);
-	const posts = await getPostsByThreadId(req.params.id);
+	const posts = await getPostsByThreadId(req.params.id, page);
 	await increaseViewCount(thread.id);
 
 	const user = req.session.user;
-	res.render('./threads/thread', { data: { thread, user, posts } });
+	res.render('./threads/thread', {
+		data: { thread, user, posts, page: +page },
+	});
 };
 
 const deleteThread = async function (req, res) {
