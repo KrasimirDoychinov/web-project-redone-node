@@ -2,18 +2,21 @@ const {
 	createPostService,
 	deletePostService,
 } = require('../services/postServices');
+const { getThreadById } = require('../services/threadServices');
 
 const createPost = async function (req, res) {
 	const { description, threadId } = req.body;
 	const creator = res.locals.user;
-	const data = await createPostService(description, threadId, creator);
+
+	const thread = await getThreadById(threadId);
+	const data = await createPostService(description, thread, creator);
 
 	if (data.error) {
-		res.redirect(`/thread/${threadId}?error=${data.error}`);
+		res.redirect(`/thread/${thread.id}?error=${data.error}`);
 		return;
 	}
 
-	res.redirect(`/thread/${threadId}?page=0`);
+	res.redirect(`/thread/${thread.id}?page=0`);
 };
 
 const deletePost = async function (req, res) {

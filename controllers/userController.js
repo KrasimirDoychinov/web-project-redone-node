@@ -1,50 +1,13 @@
-const { destroySession } = require('../services/sessionServices');
-const {
-	registerUserService,
-	loginUserService,
-} = require('../services/userServices');
+const { getPostsByCreatorId } = require('../services/postServices');
 
-const registerView = function (req, res) {
-	res.render('./auth/register');
-};
+const profileView = async function (req, res) {
+	const { user } = res.locals;
+	user.posts = await getPostsByCreatorId(user.id);
 
-const loginView = function (req, res) {
-	res.render('./auth/login');
-};
-
-const registerUser = async function (req, res) {
-	const { name, password, confirm } = req.body;
-	const data = await registerUserService(name, password, confirm);
-
-	if (data.error) {
-		res.render('./auth/register', { data });
-		return;
-	}
-
-	res.redirect('/');
-};
-
-const loginUser = async function (req, res) {
-	const { name, password } = req.body;
-	const data = await loginUserService(name, password, req.session);
-
-	if (data.error) {
-		res.render('./auth/login', { data });
-		return;
-	}
-
-	res.redirect('/');
-};
-
-const logoutUser = function (req, res) {
-	destroySession(req.session);
-	res.redirect('/');
+	console.log(user.posts);
+	res.render('./user/profile');
 };
 
 module.exports = {
-	registerView,
-	loginView,
-	registerUser,
-	loginUser,
-	logoutUser,
+	profileView,
 };

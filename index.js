@@ -51,6 +51,7 @@ app.use((req, res, next) => {
 });
 app.use(bp.urlencoded({ extended: true }));
 app.use(bp.json());
+app.use('/auth', require('./routes/authRoutes'));
 app.use('/user', require('./routes/userRoutes'));
 app.use('/baseThread', require('./routes/baseThreadRoutes'));
 app.use('/thread', require('./routes/threadRoutes'));

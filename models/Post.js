@@ -20,9 +20,15 @@ const PostSchema = new mongoose.Schema(
 				required: true,
 			},
 		},
-		threadId: {
-			type: String,
-			required: true,
+		thread: {
+			id: {
+				type: String,
+				required: true,
+			},
+			title: {
+				type: String,
+				required: true,
+			},
 		},
 		createdOn: {
 			type: Date,

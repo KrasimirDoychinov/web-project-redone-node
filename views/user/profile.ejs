@@ -1,0 +1,28 @@
+<div class="user-container">
+	<div class="user-heading">
+		<img src="<%= user.imageUrl %>" alt="" />
+		<div class="user-heading-info">
+			<h2><%= user.name %></h2>
+			<p><%= user.createdOn %></p>
+		</div>
+	</div>
+	<div class="thread-posts">
+		<% user.posts.forEach(post => {%>
+		<div class="thread-post">
+			<div class="thread-post-heading gray" data-id="<%= post._id %>">
+				<div class="thread-post-heading-data">
+					<div class="heading-info">
+						<a href="/thread/<%= post.thread.id %>" class="red"
+							><%= post.thread.title %></a
+						>
+						<p><%= post.createdOn.toLocaleString() %></p>
+					</div>
+				</div>
+			</div>
+			<div class="thread-post-content">
+				<div class="description"><%- post.description %></div>
+			</div>
+		</div>
+		<% }) %>
+	</div>
+</div>

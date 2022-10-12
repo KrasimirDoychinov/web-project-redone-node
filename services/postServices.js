@@ -2,6 +2,7 @@ const Post = require('../models/Post');
 const { postConstraints } = require('../utils/constraints');
 const { requiredFieldsMsg } = require('../utils/consts');
 const { buildConstraintError } = require('./errorEngine');
+const { getThreadById } = require('./threadServices');
 
 const getPostById = async function (id) {
 	const post = await Post.findById(id);
@@ -26,9 +27,10 @@ const deletePostsByThreadId = async function (threadId) {
 	await Post.deleteMany({ threadId: threadId });
 };
 
-const createPostService = async function (description, threadId, creator) {
+const createPostService = async function (description, thread, creator) {
 	const data = { description };
-	if (!description || !threadId || !creator) {
+
+	if (!description || !thread || !creator) {
 		data.error = requiredFieldsMsg;
 		return data;
 	}
@@ -47,7 +49,7 @@ const createPostService = async function (description, threadId, creator) {
 
 	const newPost = new Post({
 		description,
-		threadId,
+		thread: { id: thread.id, title: thread.title },
 		creator: {
 			name: creator.name,
 			imageUrl: creator.imageUrl,
@@ -67,9 +69,8 @@ const createPostService = async function (description, threadId, creator) {
 };
 
 const getPostsByThreadId = async function (threadId, page) {
-	console.log(page);
 	const skipAmmount = page * 9;
-	const posts = await Post.find({ threadId: threadId })
+	const posts = await Post.find({ 'thread.id': threadId })
 		.sort({ createdOn: 1 })
 		.skip(skipAmmount)
 		.limit(10);
@@ -83,6 +84,12 @@ const getPostsByThreadId = async function (threadId, page) {
 
 	result = result.sort((a, b) => b.votes - a.votes);
 	return result;
+};
+
+const getPostsByCreatorId = async function (creatorId) {
+	const posts = await Post.find({ 'creator.id': creatorId });
+
+	return posts;
 };
 
 const getVotes = function (post) {
@@ -101,4 +108,5 @@ module.exports = {
 	updateDescription,
 	deletePostService,
 	deletePostsByThreadId,
+	getPostsByCreatorId,
 };

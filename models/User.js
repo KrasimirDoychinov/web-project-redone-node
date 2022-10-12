@@ -14,6 +14,14 @@ const UserSchema = new mongoose.Schema(
 			type: String,
 			default: '../static/images/avatar-knight.jpg',
 		},
+		createdOn: {
+			type: Date,
+			required: true,
+		},
+		forumSignature: {
+			type: String,
+			required: false,
+		},
 	},
 	{ collection: 'users' }
 );

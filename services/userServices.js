@@ -9,6 +9,7 @@ const createUser = async function (name, password) {
 	const newUser = new User({
 		name,
 		password,
+		createdOn: new Date(),
 	});
 
 	const salt = await bcrypt.genSalt(10);
