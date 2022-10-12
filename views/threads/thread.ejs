@@ -38,13 +38,13 @@
 		</div>
 		<div class="thread-post-content">
 			<div class="description"><%- data.thread.description %></div>
-			<textarea disabled class="description tinymce" id="test">
+			<textarea disabled class="description tinymce" id="area-1">
 				<%= data.thread.description %></textarea
 			>
 		</div>
 	</div>
 	<div class="thread-posts">
-		<% data.posts.forEach(post => {%>
+		<% let counter = 2; data.posts.forEach(post => {%>
 		<div class="thread-post">
 			<div class="thread-post-heading gray" data-id="<%= post._id %>">
 				<img src="<%= post.creator.imageUrl %>" alt="" />
@@ -80,8 +80,13 @@
 				</div>
 			</div>
 			<div class="thread-post-content">
-				<textarea disabled class="description">
-<%= post.description %></textarea
+				<div class="description"><%- post.description %></div>
+				<textarea
+					disabled
+					class="description tinymce"
+					id="area-<%= counter++ %>"
+				>
+				<%= post.description %></textarea
 				>
 			</div>
 		</div>
@@ -93,7 +98,12 @@
 	<a class="purple-btn new-thread-btn">Create new</a>
 	<form class="thread-create" action="/post/create" method="post">
 		<div class="thread-create-data">
-			<textarea type="text" name="description" rows="15"></textarea>
+			<textarea
+				type="text"
+				name="description"
+				class="tinymce constant-tinymce"
+				rows="15"
+			></textarea>
 		</div>
 		<input type="text" hidden name="threadId" value="<%= data.thread.id %>" />
 		<button type="submit" class="purple-btn">Create</button>

@@ -60,12 +60,12 @@ document.querySelectorAll('.edit-btn').forEach((x) => {
 			'.thread-post-content > .description'
 		);
 
-		const tinyMceTextArea = container.parentElement.querySelector(
+		const tinyMce = container.parentElement.querySelector(
 			'.thread-post-content .tox-tinymce'
 		);
 
 		textarea.classList.toggle('hidden');
-		tinyMceTextArea.classList.toggle('show-tinymce');
+		tinyMce.classList.toggle('show-tinymce');
 		e.currentTarget.innerHTML = !textarea.classList.contains('hidden')
 			? 'Edit'
 			: 'Close';
@@ -82,7 +82,6 @@ document.querySelectorAll('.save-btn').forEach((x) => {
 			'.thread-post-content > .description'
 		);
 
-		console.log(textarea);
 		const tinyMce = container.parentElement.querySelector(
 			'.thread-post-content .tox-tinymce'
 		);
@@ -111,9 +110,10 @@ document.querySelectorAll('.save-btn').forEach((x) => {
 			alert('There was an error');
 			return;
 		}
+
 		textarea.classList.toggle('hidden');
 		tinyMce.classList.toggle('show-tinymce');
-		textarea.innerHTML = `${tinyMceTextareaValue}`;
+		textarea.innerHTML = tinyMceTextareaValue;
 		editBtn.innerHTML = !textarea.classList.contains('hidden')
 			? 'Edit'
 			: 'Close';
