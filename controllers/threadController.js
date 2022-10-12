@@ -25,14 +25,15 @@ const createThread = async function (req, res) {
 };
 
 const threadView = async function (req, res) {
-	const { page } = req.query;
+	let { page } = req.query;
+	page = page ? +page : 0;
 	const thread = await getThreadById(req.params.id);
 	const posts = await getPostsByThreadId(req.params.id, page);
 	await increaseViewCount(thread.id);
 
 	const user = req.session.user;
 	res.render('./threads/thread', {
-		data: { thread, user, posts, page: +page },
+		data: { thread, user, posts, page },
 	});
 };
 

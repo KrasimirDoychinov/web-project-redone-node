@@ -2,6 +2,8 @@ const { getBaseThreadById } = require('../services/baseThreadServices');
 const { getAllThreadsByBaseThread } = require('../services/threadServices');
 
 const baseThreadByIdView = async function (req, res) {
+	let { page } = req.query;
+	page = page ? +page : 0;
 	const baseThread = await getBaseThreadById(req.params.id);
 	const threads = await getAllThreadsByBaseThread(
 		req.params.id,
@@ -9,7 +11,7 @@ const baseThreadByIdView = async function (req, res) {
 	);
 
 	res.render('baseThread', {
-		data: { ...res.locals.data, threads, baseThread, page: +req.query.page },
+		data: { ...res.locals.data, threads, baseThread, page },
 	});
 };
 
