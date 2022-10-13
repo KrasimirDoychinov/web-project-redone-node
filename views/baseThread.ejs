@@ -3,7 +3,7 @@
 	<h2>
 		There are currently no <span class="purple"><%= data.baseThread.title %></span> threads.
 	</h2>
-	<a class="purple-btn new-thread-btn">Create new</a>
+	<a class="purple-btn create-new-btn">Create new</a>
 </divc>
 <% } else { %>
   <div class="thread-container">
@@ -70,4 +70,5 @@
     <input type="text" hidden name="baseId" value="<%= data.baseThread.id %>" />
     <input type="text" hidden name="page" value="<%= data.page %>">
     <button type="submit" class="purple-btn">Create</button>
+    <script src="../static/js/thread.js"></script>
   </form>
