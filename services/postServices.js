@@ -1,3 +1,5 @@
+const sanitizeHtml = require('sanitize-html');
+
 const Post = require('../models/Post');
 const { postConstraints } = require('../utils/constraints');
 const { requiredFieldsMsg } = require('../utils/consts');
@@ -5,7 +7,14 @@ const { buildConstraintError } = require('./errorEngine');
 
 const getPostById = async function (id) {
 	const post = await Post.findById(id);
-
+	post.description = sanitizeHtml(post.description, {
+		allowedTags: ['b', 'i', 'em', 'strong', 'a', 'iframe', 'img'],
+		allowedAttributes: {
+			a: ['href', 'name', 'target'],
+			iframe: ['title', 'src'],
+			img: ['src'],
+		},
+	});
 	return post;
 };
 

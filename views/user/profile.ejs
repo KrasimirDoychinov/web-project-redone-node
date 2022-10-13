@@ -1,4 +1,37 @@
 <div class="user-container">
+	<script
+		src="https://cdn.tiny.cloud/1/f72c5jvwgdg8wtlscs74a71b2llpy8uzs41bauaaibmi0ola/tinymce/6/tinymce.min.js"
+		referrerpolicy="origin"
+	></script>
+	<script>
+		tinymce.init({
+			selector: '.tinymce',
+			plugins: 'image link media',
+			height: '200',
+			setup: function (ed) {
+				ed.on('blur', async function (e) {
+					const content = tinymce.get('forum-signature').getContent();
+					const res = await fetch(`${host}/updateForumSignature`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							forumSignature: content,
+						}),
+					});
+
+					const data = await res.json();
+					console.log(data);
+					if (!data.success) {
+						console.log(data.error);
+						alert(`There was an error: ${data.error}`);
+						return;
+					}
+				});
+			},
+		});
+	</script>
 	<div class="user-heading">
 		<div class="images hidden">
 			<% data.avatars.forEach(x => {%>
@@ -10,6 +43,12 @@
 			<h2><%= user.name %></h2>
 			<p><%= user.createdOn %></p>
 		</div>
+	</div>
+
+	<div class="signature-container">
+		<textarea class="signature tinymce constant-tinymce" id="forum-signature">
+<%= user.forumSignature %></textarea
+		>
 	</div>
 	<div class="thread-posts">
 		<% user.posts.forEach(post => {%>

@@ -96,6 +96,7 @@ const loginUserService = async function (name, password, session) {
 		name: foundUser.name,
 		id: foundUser.id,
 		imageUrl: foundUser.imageUrl,
+		forumSignature: foundUser.forumSignature,
 	});
 	console.log(`Successfuly login in ${foundUser.name}`);
 	return data;
@@ -117,9 +118,23 @@ const updateUserAvatar = async function (user, imageUrl) {
 	}
 };
 
+const updateSignature = async function (id, forumSignature) {
+	if (forumSignature.length > userConstrains.forumSignatureMaxLength) {
+		throw new Error(
+			`Forum signature cannot be over ${userConstrains.forumSignatureMaxLength} symbols.`
+		);
+	}
+
+	const user = await User.findById(id);
+	user.forumSignature = forumSignature;
+
+	await user.save();
+};
+
 module.exports = {
 	registerUserService,
 	loginUserService,
 	createUser,
 	updateUserAvatar,
+	updateSignature,
 };

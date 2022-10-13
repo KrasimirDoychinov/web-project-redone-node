@@ -3,6 +3,7 @@ const userConstrains = {
 	nameMaxLength: 30,
 	passMinLength: 8,
 	passMaxLength: 100,
+	forumSignatureMaxLength: 200,
 };
 
 const threadConstraints = {

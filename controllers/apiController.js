@@ -8,7 +8,10 @@ const {
 	updateThreadDescription,
 	updateThreadCreatorImageUrl,
 } = require('../services/threadServices');
-const { updateUserAvatar } = require('../services/userServices');
+const {
+	updateUserAvatar,
+	updateSignature,
+} = require('../services/userServices');
 const { vote } = require('../services/voteService');
 
 const votes = async function (req, res) {
@@ -48,8 +51,8 @@ const updateAvatar = async function (req, res) {
 	const user = res.locals.user;
 
 	try {
-		const newUser = await updateUserAvatar(user, url);
-		await saveSessionUser(req.session, newUser);
+		const newSessionUser = await updateUserAvatar(user, url);
+		await saveSessionUser(req.session, newSessionUser);
 
 		await updateCreatorImage(user.id, url);
 		await updateThreadCreatorImageUrl(user.id, url);
@@ -59,9 +62,23 @@ const updateAvatar = async function (req, res) {
 	}
 };
 
+const updateForumSignature = async function (req, res) {
+	const { forumSignature } = req.body;
+	const user = res.locals.user;
+
+	try {
+		const newSessionUser = await updateSignature(user.id, forumSignature);
+		await saveSessionUser(req.session, newSessionUser);
+
+		res.send({ success: true });
+	} catch (error) {
+		res.send({ success: false, error: error.message });
+	}
+};
 module.exports = {
 	votes,
 	updatePost,
 	updateThread,
 	updateAvatar,
+	updateForumSignature,
 };
