@@ -19,6 +19,10 @@ const PostSchema = new mongoose.Schema(
 				type: String,
 				required: true,
 			},
+			forumSignature: {
+				type: String,
+				required: false,
+			},
 		},
 		thread: {
 			id: {

@@ -115,6 +115,13 @@ const updateCreatorImage = async function (id, url) {
 	);
 };
 
+const updateCreatorSignature = async function (id, forumSignature) {
+	await Thread.updateMany(
+		{ 'creator.id': id },
+		{ $set: { 'creator.forumSignature': forumSignature } }
+	);
+};
+
 const threadServices = {
 	create,
 	deleteById,
@@ -124,6 +131,7 @@ const threadServices = {
 	increaseViewCount,
 	updateDescription,
 	updateCreatorImage,
+	updateCreatorSignature,
 };
 
 module.exports = threadServices;

@@ -27,6 +27,10 @@ const ThreadSchema = new mongoose.Schema(
 				type: String,
 				required: true,
 			},
+			forumSignature: {
+				type: String,
+				required: false,
+			},
 		},
 		createdOn: {
 			type: Date,

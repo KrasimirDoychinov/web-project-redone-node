@@ -104,10 +104,11 @@ const getVotes = function (post) {
 };
 
 const updateDescription = async function (id, description) {
-	const post = await getBy(id);
+	const post = await getById(id);
 	post.description = description;
 
 	post.save().catch((error) => {
+		console.log(error.message);
 		throw error;
 	});
 };
@@ -116,6 +117,13 @@ const updateCreatorImage = async function (id, url) {
 	await Post.updateMany(
 		{ 'creator.id': id },
 		{ $set: { 'creator.imageUrl': url } }
+	);
+};
+
+const updateCreatorSignature = async function (id, forumSignature) {
+	await Post.updateMany(
+		{ 'creator.id': id },
+		{ $set: { 'creator.forumSignature': forumSignature } }
 	);
 };
 
@@ -129,6 +137,7 @@ const postServices = {
 	getVotes,
 	updateDescription,
 	updateCreatorImage,
+	updateCreatorSignature,
 };
 
 module.exports = postServices;

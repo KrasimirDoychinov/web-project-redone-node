@@ -1,4 +1,3 @@
-const imageService = require('../services/imageService');
 const postServices = require('../services/postServices');
 const sessionService = require('../services/sessionServices');
 const threadServices = require('../services/threadServices');
@@ -24,6 +23,7 @@ const updatePost = async function (req, res) {
 		await postServices.updateDescription(id, description);
 		res.send({ success: true });
 	} catch (error) {
+		console.log(error.message);
 		res.send({ success: false, error });
 	}
 };
@@ -65,6 +65,8 @@ const updateForumSignature = async function (req, res) {
 		);
 		await sessionService.saveUser(req.session, newSessionUser);
 
+		await postServices.updateCreatorSignature(user.id, forumSignature);
+		await threadServices.updateCreatorSignature(user.id, forumSignature);
 		res.send({ success: true });
 	} catch (error) {
 		res.send({ success: false, error: error.message });

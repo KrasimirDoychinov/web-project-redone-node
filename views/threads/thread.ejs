@@ -46,6 +46,7 @@
 				<%= data.thread.description %></textarea
 			>
 		</div>
+		<div class="forum-signature"><%- data.thread.creator.forumSignature %></div>
 	</div>
 	<div class="thread-posts">
 		<% let counter = 2; data.posts.forEach(post => {%>
@@ -93,6 +94,7 @@
 				<%= post.description %></textarea
 				>
 			</div>
+			<div class="forum-signature"><%- post.creator.forumSignature %></div>
 		</div>
 		<% }) %>
 	</div>
