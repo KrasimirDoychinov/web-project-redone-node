@@ -113,6 +113,13 @@ const increaseViewCount = async function (id) {
 	await thread.save();
 };
 
+const updateThreadCreatorImageUrl = async function (id, url) {
+	await Thread.updateMany(
+		{ 'creator.id': id },
+		{ $set: { 'creator.imageUrl': url } }
+	);
+};
+
 module.exports = {
 	createThreadService,
 	getAllThreadsByBaseThread,
@@ -121,4 +128,5 @@ module.exports = {
 	updateThreadDescription,
 	deleteThreadById,
 	getThreadsByMostViews,
+	updateThreadCreatorImageUrl,
 };

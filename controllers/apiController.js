@@ -1,5 +1,13 @@
-const { getVotes, updateDescription } = require('../services/postServices');
-const { updateThreadDescription } = require('../services/threadServices');
+const {
+	getVotes,
+	updateDescription,
+	updateCreatorImage,
+} = require('../services/postServices');
+const { saveSessionUser } = require('../services/sessionServices');
+const {
+	updateThreadDescription,
+	updateThreadCreatorImageUrl,
+} = require('../services/threadServices');
 const { updateUserAvatar } = require('../services/userServices');
 const { vote } = require('../services/voteService');
 
@@ -40,7 +48,11 @@ const updateAvatar = async function (req, res) {
 	const user = res.locals.user;
 
 	try {
-		await updateUserAvatar(user,  url);
+		const newUser = await updateUserAvatar(user, url);
+		await saveSessionUser(req.session, newUser);
+
+		await updateCreatorImage(user.id, url);
+		await updateThreadCreatorImageUrl(user.id, url);
 		res.send({ success: true, url: url });
 	} catch (error) {
 		res.send({ success: false, error });

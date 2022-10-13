@@ -107,6 +107,11 @@ const updateUserAvatar = async function (user, imageUrl) {
 		dbUser.imageUrl = imageUrl;
 
 		await dbUser.save();
+		return {
+			name: dbUser.name,
+			id: dbUser.id,
+			imageUrl: dbUser.imageUrl,
+		};
 	} catch (error) {
 		console.log(error);
 	}

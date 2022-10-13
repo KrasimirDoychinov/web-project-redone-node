@@ -9,6 +9,7 @@ document.querySelectorAll('.avatar-img').forEach((x) => {
 	x.addEventListener('click', async (e) => {
 		const avatar = document.querySelector('.profile-img');
 		const images = document.querySelector('.images');
+		const headerImg = document.querySelector('.header-img');
 
 		const url = e.currentTarget.getAttribute('src');
 		const res = await fetch(`${host}/updateAvatar`, {
@@ -29,6 +30,7 @@ document.querySelectorAll('.avatar-img').forEach((x) => {
 		}
 
 		avatar.setAttribute('src', url);
+		headerImg.setAttribute('src', url);
 
 		avatar.classList.toggle('hidden');
 		images.classList.toggle('hidden');

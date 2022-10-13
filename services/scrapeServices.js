@@ -42,9 +42,7 @@ const scrapeNews = async function () {
 			);
 
 			result.push({ title, link, time, name });
-		} catch (error) {
-			console.log(error);
-		}
+		} catch (error) {}
 	}
 
 	browser.close();

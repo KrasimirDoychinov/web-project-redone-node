@@ -103,6 +103,13 @@ const getVotes = function (post) {
 	return votes;
 };
 
+const updateCreatorImage = async function (id, url) {
+	await Post.updateMany(
+		{ 'creator.id': id },
+		{ $set: { 'creator.imageUrl': url } }
+	);
+};
+
 module.exports = {
 	createPostService,
 	getPostsByThreadId,
@@ -112,4 +119,5 @@ module.exports = {
 	deletePostService,
 	deletePostsByThreadId,
 	getPostsByCreatorId,
+	updateCreatorImage,
 };

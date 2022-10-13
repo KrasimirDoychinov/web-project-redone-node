@@ -9,7 +9,9 @@
 		<li><a href="/auth/register">Register</a></li>
 		<li><a href="/auth/login">Login</a></li>
 		<% } else { %>
-		<a href="/user/profile"><img src="<%= user.imageUrl %>" alt="" /></a>
+		<a href="/user/profile"
+			><img class="header-img" src="<%= user.imageUrl %>" alt=""
+		/></a>
 		<li><a href="/auth/logout">Logout</a></li>
 		<% } %>
 	</ul>
