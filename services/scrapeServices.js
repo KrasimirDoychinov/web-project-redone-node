@@ -6,12 +6,13 @@ const scrapeNews = async function () {
 	const result = [];
 
 	await page.goto('https://forums.swtor.com/discover/6/');
-	try {
-		for (let i = 1; i <= 10; i++) {
+	for (let i = 1; i <= 10; i++) {
+		try {
 			const element = await page.waitForSelector(
 				`#ipsLayout_mainArea > section > div:nth-child(3) > div > div > ol.ipsStream.ipsStream_withTimeline.ipsList_reset > li:nth-child(${
 					i * 2
-				}) > div > div.ipsStreamItem_header.ipsPhotoPanel.ipsPhotoPanel_mini > div > h2 > span > a`
+				}) > div > div.ipsStreamItem_header.ipsPhotoPanel.ipsPhotoPanel_mini > div > h2 > span > a`,
+				{ timeout: 500 }
 			);
 
 			const dateElement = await page.waitForSelector(
@@ -41,9 +42,9 @@ const scrapeNews = async function () {
 			);
 
 			result.push({ title, link, time, name });
+		} catch (error) {
+			console.log(error);
 		}
-	} catch (error) {
-		console.log(error);
 	}
 
 	browser.close();
