@@ -1,8 +1,8 @@
 const express = require('express');
 const { profileView } = require('../controllers/userController');
-const { authorized } = require('../utils/middlewares');
+const { authorized, pagination } = require('../utils/middlewares');
 const router = express.Router();
 
-router.get('/profile', authorized, profileView);
+router.get('/profile', [authorized, pagination], profileView);
 
 module.exports = router;

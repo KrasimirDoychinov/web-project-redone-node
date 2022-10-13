@@ -87,7 +87,11 @@ const getPostsByThreadId = async function (threadId, page) {
 };
 
 const getPostsByCreatorId = async function (creatorId) {
-	const posts = await Post.find({ 'creator.id': creatorId });
+	const posts = await Post.find({ 'creator.id': creatorId })
+		.sort({
+			createdOn: -1,
+		})
+		.limit(25);
 
 	return posts;
 };

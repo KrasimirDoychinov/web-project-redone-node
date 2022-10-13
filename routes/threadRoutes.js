@@ -5,12 +5,12 @@ const {
 	threadView,
 	deleteThread,
 } = require('../controllers/threadController');
-const { authorized } = require('../utils/middlewares');
+const { authorized, pagination } = require('../utils/middlewares');
 const router = express.Router();
 
 router.get('/create', authorized, createThreadView);
 router.post('/create', authorized, createThread);
-router.get('/:id', authorized, threadView);
-router.get('/delete/:id', authorized, deleteThread);
+router.get('/:id', [authorized, pagination], threadView);
+router.get('/delete/', authorized, deleteThread);
 
 module.exports = router;
