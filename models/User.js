@@ -12,7 +12,8 @@ const UserSchema = new mongoose.Schema(
 		},
 		imageUrl: {
 			type: String,
-			default: '../static/images/avatar-knight.jpg',
+			default:
+				'https://res.cloudinary.com/detha4545/image/upload/v1665658776/swtor/avatar-default_jcvplk.jpg',
 		},
 		createdOn: {
 			type: Date,

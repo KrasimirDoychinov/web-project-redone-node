@@ -2,7 +2,6 @@ const Post = require('../models/Post');
 const { postConstraints } = require('../utils/constraints');
 const { requiredFieldsMsg } = require('../utils/consts');
 const { buildConstraintError } = require('./errorEngine');
-const { getThreadById } = require('./threadServices');
 
 const getPostById = async function (id) {
 	const post = await Post.findById(id);

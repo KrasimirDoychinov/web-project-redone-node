@@ -101,8 +101,18 @@ const loginUserService = async function (name, password, session) {
 	return data;
 };
 
+const updateAvatar = async function (imageUrl) {
+	const localUser = res.locals.user;
+	const dbUser = await User.findById(localuser.id);
+
+	dbUser.imageUrl = imageUrl;
+
+	await dbUser.save();
+};
+
 module.exports = {
 	registerUserService,
 	loginUserService,
 	createUser,
+	updateAvatar,
 };

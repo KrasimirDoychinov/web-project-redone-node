@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const sessions = require('express-session');
+const cloudinary = require('cloudinary').v2;
 
 const { populateDb } = require('./utils/populateDb');
 const expressLayouts = require('express-ejs-layouts');
@@ -8,10 +9,19 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
-const { scrape } = require('./services/scrapeServices');
 const { getNews } = require('./services/newsServices');
 const { getThreadsByMostViews } = require('./services/threadServices');
+const { getAllAvatars } = require('./services/imageService');
+const Post = require('./models/Post');
 dotenv.config();
+
+// Cloudinary
+cloudinary.config({
+	cloud_name: 'detha4545',
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
+	secure: true,
+});
 
 // Checks and populates the DB with neede documents
 populateDb();
