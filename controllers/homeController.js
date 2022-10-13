@@ -1,8 +1,7 @@
-const BaseThread = require('../models/BaseThread');
-const { checkForSessionValue } = require('../services/sessionServices');
+const baseThreadService = require('../services/baseThreadServices');
 
 const homeView = async function (req, res) {
-	const baseThreads = await BaseThread.find({});
+	const baseThreads = await baseThreadService.all();
 	res.render('index', { data: { baseThreads } });
 };
 

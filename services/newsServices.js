@@ -1,6 +1,6 @@
 const News = require('../models/News');
 
-const getUnique = async function (data) {
+const unique = async function (data) {
 	let result = [];
 	for (const x of data) {
 		const found = await News.findOne({ link: x.link });
@@ -12,13 +12,15 @@ const getUnique = async function (data) {
 	return result;
 };
 
-const getNews = async function () {
+const all = async function () {
 	const news = await News.find({}).sort({ time: -1 }).limit(10);
 
 	return news;
 };
 
-module.exports = {
-	getUnique,
-	getNews,
+const newsService = {
+	unique,
+	all,
 };
+
+module.exports = newsService;

@@ -5,37 +5,7 @@ const { postConstraints } = require('../utils/constraints');
 const { requiredFieldsMsg } = require('../utils/consts');
 const { buildConstraintError } = require('./errorEngine');
 
-const getPostById = async function (id) {
-	const post = await Post.findById(id);
-	post.description = sanitizeHtml(post.description, {
-		allowedTags: ['b', 'i', 'em', 'strong', 'a', 'iframe', 'img'],
-		allowedAttributes: {
-			a: ['href', 'name', 'target'],
-			iframe: ['title', 'src'],
-			img: ['src'],
-		},
-	});
-	return post;
-};
-
-const updateDescription = async function (id, description) {
-	const post = await getPostById(id);
-	post.description = description;
-
-	post.save().catch((error) => {
-		throw error;
-	});
-};
-
-const deletePostService = async function (id) {
-	await Post.findByIdAndDelete(id);
-};
-
-const deletePostsByThreadId = async function (threadId) {
-	await Post.deleteMany({ threadId: threadId });
-};
-
-const createPostService = async function (description, thread, creator) {
+const create = async function (description, thread, creator) {
 	const data = { description };
 
 	if (!description || !thread || !creator) {
@@ -76,7 +46,28 @@ const createPostService = async function (description, thread, creator) {
 	return data;
 };
 
-const getPostsByThreadId = async function (threadId, page) {
+const getById = async function (id) {
+	const post = await Post.findById(id);
+	post.description = sanitizeHtml(post.description, {
+		allowedTags: ['b', 'i', 'em', 'strong', 'a', 'iframe', 'img'],
+		allowedAttributes: {
+			a: ['href', 'name', 'target'],
+			iframe: ['title', 'src'],
+			img: ['src'],
+		},
+	});
+	return post;
+};
+
+const deleteById = async function (id) {
+	await Post.findByIdAndDelete(id);
+};
+
+const deleteByThreadId = async function (threadId) {
+	await Post.deleteMany({ threadId: threadId });
+};
+
+const allByThreadId = async function (threadId, page) {
 	const skipAmmount = page * 9;
 	const posts = await Post.find({ 'thread.id': threadId })
 		.sort({ createdOn: 1 })
@@ -94,7 +85,7 @@ const getPostsByThreadId = async function (threadId, page) {
 	return result;
 };
 
-const getPostsByCreatorId = async function (creatorId) {
+const allByCreatorId = async function (creatorId) {
 	const posts = await Post.find({ 'creator.id': creatorId })
 		.sort({
 			createdOn: -1,
@@ -112,6 +103,15 @@ const getVotes = function (post) {
 	return votes;
 };
 
+const updateDescription = async function (id, description) {
+	const post = await getBy(id);
+	post.description = description;
+
+	post.save().catch((error) => {
+		throw error;
+	});
+};
+
 const updateCreatorImage = async function (id, url) {
 	await Post.updateMany(
 		{ 'creator.id': id },
@@ -119,14 +119,16 @@ const updateCreatorImage = async function (id, url) {
 	);
 };
 
-module.exports = {
-	createPostService,
-	getPostsByThreadId,
-	getPostById,
+const postServices = {
+	getById,
+	create,
+	deleteById,
+	deleteByThreadId,
+	allByThreadId,
+	allByCreatorId,
 	getVotes,
 	updateDescription,
-	deletePostService,
-	deletePostsByThreadId,
-	getPostsByCreatorId,
 	updateCreatorImage,
 };
+
+module.exports = postServices;

@@ -1,6 +1,6 @@
 const BaseThread = require('../models/BaseThread');
 
-const createBaseThread = function (title, description, imageUrl) {
+const create = function (title, description, imageUrl) {
 	const newBaseThread = new BaseThread({
 		title,
 		description,
@@ -10,14 +10,20 @@ const createBaseThread = function (title, description, imageUrl) {
 	newBaseThread.save().catch((err) => console.log(err));
 };
 
-const getBaseThreadById = async function (id) {
+const getById = async function (id) {
 	const baseThread = await BaseThread.findById(id);
 
 	return baseThread;
 };
 
-
-module.exports = {
-	createBaseThread,
-	getBaseThreadById,
+const all = async function () {
+	return await BaseThread.find({});
 };
+
+const baseThreadService = {
+	create,
+	getById,
+	all,
+};
+
+module.exports = baseThreadService;

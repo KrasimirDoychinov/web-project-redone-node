@@ -1,10 +1,5 @@
-const { getPostsByThreadId } = require('../services/postServices');
-const {
-	createThreadService,
-	getThreadById,
-	increaseViewCount,
-	deleteThreadById,
-} = require('../services/threadServices');
+const postServices = require('../services/postServices');
+const threadServices = require('../services/threadServices');
 
 const createThreadView = function (req, res) {
 	res.render('./threads/create', { data: { baseId: req.query.baseId } });
@@ -14,7 +9,7 @@ const createThread = async function (req, res) {
 	const { title, description, baseId, page } = req.body;
 	const creator = res.locals.user;
 
-	const data = await createThreadService(title, description, baseId, creator);
+	const data = await threadServices.create(title, description, baseId, creator);
 
 	if (data.error) {
 		res.redirect(`/baseThread/${baseId}?error=${data.error}&page=${page}`);
@@ -25,9 +20,12 @@ const createThread = async function (req, res) {
 };
 
 const threadView = async function (req, res) {
-	const thread = await getThreadById(req.params.id);
-	const posts = await getPostsByThreadId(req.params.id, res.locals.page);
-	await increaseViewCount(thread.id);
+	const thread = await threadServices.getById(req.params.id);
+	const posts = await postServices.allByThreadId(
+		req.params.id,
+		res.locals.page
+	);
+	await threadServices.increaseViewCount(thread.id);
 
 	const user = req.session.user;
 	res.render('./threads/thread', {
@@ -38,7 +36,7 @@ const threadView = async function (req, res) {
 const deleteThread = async function (req, res) {
 	const threadId = req.params.id;
 	const { baseId } = req.query;
-	await deleteThreadById(threadId);
+	await threadServices.deleteById(threadId);
 	res.redirect(`/baseThread/${baseId}?page=0`);
 };
 

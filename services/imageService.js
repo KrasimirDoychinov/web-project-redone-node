@@ -1,6 +1,6 @@
 const cloudinary = require('cloudinary');
 
-const getAllAvatars = async function () {
+const allAvatars = async function () {
 	const result = (await cloudinary.api.resources({ folder: 'swtor' })).resources
 		.map((x) => x.url)
 		.filter((x) => x.includes('avatar'));
@@ -8,6 +8,8 @@ const getAllAvatars = async function () {
 	return result;
 };
 
-module.exports = {
-	getAllAvatars,
+const imageService = {
+	allAvatars,
 };
+
+module.exports = imageService;

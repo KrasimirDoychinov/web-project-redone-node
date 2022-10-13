@@ -5,45 +5,7 @@ const { threadConstraints } = require('../utils/constraints');
 const { buildConstraintError } = require('./errorEngine');
 const { deletePostsByThreadId } = require('./postServices');
 
-const getThreadById = async function (id) {
-	const data = await Thread.findById(id);
-	data.description = sanitizeHtml(data.description, {
-		allowedTags: ['b', 'i', 'em', 'strong', 'a', 'iframe', 'img'],
-		allowedAttributes: {
-			a: ['href', 'name', 'target'],
-			iframe: ['title', 'src'],
-			img: ['src'],
-		},
-	});
-	return data;
-};
-
-const getThreadsByMostViews = async function () {
-	const threads = await Thread.find({}).sort({ views: -1 }).limit(10);
-
-	return threads;
-};
-
-const updateThreadDescription = async function (id, description) {
-	const thread = await getThreadById(id);
-	thread.description = description;
-
-	thread.save().catch((error) => {
-		throw error;
-	});
-};
-
-const deleteThreadById = async function (id) {
-	await deletePostsByThreadId(id);
-	await Thread.findByIdAndDelete(id);
-};
-
-const createThreadService = async function (
-	title,
-	description,
-	baseThreadId,
-	creator
-) {
+const create = async function (title, description, baseThreadId, creator) {
 	const data = { error: false };
 	if (!title || !description || !baseThreadId || !creator) {
 		data.error = requiredFieldsMsg;
@@ -95,7 +57,31 @@ const createThreadService = async function (
 	return data;
 };
 
-const getAllThreadsByBaseThread = async function (baseId, page = 0) {
+const deleteById = async function (id) {
+	await deletePostsByThreadId(id);
+	await Thread.findByIdAndDelete(id);
+};
+
+const getById = async function (id) {
+	const data = await Thread.findById(id);
+	data.description = sanitizeHtml(data.description, {
+		allowedTags: ['b', 'i', 'em', 'strong', 'a', 'iframe', 'img'],
+		allowedAttributes: {
+			a: ['href', 'name', 'target'],
+			iframe: ['title', 'src'],
+			img: ['src'],
+		},
+	});
+	return data;
+};
+
+const allByViews = async function (limit) {
+	const threads = await Thread.find({}).limit(limit);
+
+	return threads;
+};
+
+const allByBase = async function (baseId, page = 0) {
 	const skipAmmount = page * 9;
 	const data = await Thread.find({ baseThreadId: baseId })
 		.sort({
@@ -107,26 +93,37 @@ const getAllThreadsByBaseThread = async function (baseId, page = 0) {
 	return data;
 };
 
+const updateDescription = async function (id, description) {
+	const thread = await getById(id);
+	thread.description = description;
+
+	thread.save().catch((error) => {
+		throw error;
+	});
+};
+
 const increaseViewCount = async function (id) {
-	const thread = await getThreadById(id);
+	const thread = await getById(id);
 	thread.views++;
 	await thread.save();
 };
 
-const updateThreadCreatorImageUrl = async function (id, url) {
+const updateCreatorImage = async function (id, url) {
 	await Thread.updateMany(
 		{ 'creator.id': id },
 		{ $set: { 'creator.imageUrl': url } }
 	);
 };
 
-module.exports = {
-	createThreadService,
-	getAllThreadsByBaseThread,
-	getThreadById,
+const threadServices = {
+	create,
+	deleteById,
+	getById,
+	allByViews,
+	allByBase,
 	increaseViewCount,
-	updateThreadDescription,
-	deleteThreadById,
-	getThreadsByMostViews,
-	updateThreadCreatorImageUrl,
+	updateDescription,
+	updateCreatorImage,
 };
+
+module.exports = threadServices;

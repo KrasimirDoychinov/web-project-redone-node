@@ -49,6 +49,8 @@ const scrapeNews = async function () {
 	return result;
 };
 
-module.exports = {
+const scrapeService = {
 	scrapeNews,
 };
+
+module.exports = scrapeService;

@@ -5,6 +5,8 @@ const { createBaseThread } = require('../services/baseThreadServices');
 const { scrapeNews } = require('../services/scrapeServices');
 const News = require('../models/News');
 const { getUnique } = require('../services/newsServices');
+const scrapeService = require('../services/scrapeServices');
+const newsService = require('../services/newsServices');
 
 const populateUsers = async function () {
 	if (!(await User.findOne({ name: 'admin' }))) {
@@ -53,8 +55,8 @@ const populateBaseThreads = async function () {
 };
 
 const populateNews = async function () {
-	const data = await scrapeNews();
-	const uniqueData = await getUnique(data);
+	const data = await scrapeService.scrapeNews();
+	const uniqueData = await newsService.unique(data);
 	await News.insertMany(uniqueData);
 };
 

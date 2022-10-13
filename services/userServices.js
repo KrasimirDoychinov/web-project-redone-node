@@ -4,8 +4,9 @@ const { requiredFieldsMsg, internalErrorMsg } = require('../utils/consts');
 const { saveSessionUser } = require('./sessionServices');
 const { userConstrains } = require('../utils/constraints');
 const { buildConstraintError } = require('./errorEngine');
+const sessionService = require('./sessionServices');
 
-const createUser = async function (name, password) {
+const create = async function (name, password) {
 	const newUser = new User({
 		name,
 		password,
@@ -24,7 +25,7 @@ const createUser = async function (name, password) {
 	}
 };
 
-const registerUserService = async function (name, password, confirm) {
+const register = async function (name, password, confirm) {
 	const data = { name, password, confirm };
 	if (!name || !password || !confirm) {
 		data.error = requiredFieldsMsg;
@@ -66,14 +67,14 @@ const registerUserService = async function (name, password, confirm) {
 		return data;
 	}
 
-	if (!(await createUser(name, password))) {
+	if (!(await userService.create(name, password))) {
 		data.error = internalErrorMsg;
 		return data;
 	}
 	return data;
 };
 
-const loginUserService = async function (name, password, session) {
+const login = async function (name, password, session) {
 	const data = { name, password, error: false };
 	if (!name || !password) {
 		data.error = requiredFieldsMsg;
@@ -92,7 +93,7 @@ const loginUserService = async function (name, password, session) {
 		return data;
 	}
 
-	saveSessionUser(session, {
+	sessionService.saveUser(session, {
 		name: foundUser.name,
 		id: foundUser.id,
 		imageUrl: foundUser.imageUrl,
@@ -102,7 +103,7 @@ const loginUserService = async function (name, password, session) {
 	return data;
 };
 
-const updateUserAvatar = async function (user, imageUrl) {
+const updateAvatar = async function (user, imageUrl) {
 	try {
 		const dbUser = await User.findById(user.id);
 		dbUser.imageUrl = imageUrl;
@@ -131,10 +132,12 @@ const updateSignature = async function (id, forumSignature) {
 	await user.save();
 };
 
-module.exports = {
-	registerUserService,
-	loginUserService,
-	createUser,
-	updateUserAvatar,
+const userService = {
+	create,
+	register,
+	login,
+	updateAvatar,
 	updateSignature,
 };
+
+module.exports = userService;

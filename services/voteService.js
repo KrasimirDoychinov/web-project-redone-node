@@ -21,6 +21,6 @@ const vote = async function (postId, userId, type) {
 	}
 };
 
-module.exports = {
-	vote,
-};
+const voteService = { vote };
+
+module.exports = voteService;
