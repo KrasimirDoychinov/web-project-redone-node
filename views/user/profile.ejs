@@ -1,6 +1,11 @@
 <div class="user-container">
 	<div class="user-heading">
-		<img src="<%= user.imageUrl %>" alt="" />
+		<div class="images hidden">
+			<% data.avatars.forEach(x => {%>
+			<img class="avatar-img" src="<%= x %>" alt="" />
+			<% }) %>
+		</div>
+		<img class="profile-img" src="<%= user.imageUrl %>" alt="" />
 		<div class="user-heading-info">
 			<h2><%= user.name %></h2>
 			<p><%= user.createdOn %></p>
@@ -25,4 +30,5 @@
 		</div>
 		<% }) %>
 	</div>
+	<script src="../../static/js/profile.js"></script>
 </div>

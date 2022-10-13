@@ -1,5 +1,6 @@
 const { getVotes, updateDescription } = require('../services/postServices');
 const { updateThreadDescription } = require('../services/threadServices');
+const { updateUserAvatar } = require('../services/userServices');
 const { vote } = require('../services/voteService');
 
 const votes = async function (req, res) {
@@ -34,8 +35,21 @@ const updateThread = async function (req, res) {
 	}
 };
 
+const updateAvatar = async function (req, res) {
+	const { url } = req.body;
+	const user = res.locals.user;
+
+	try {
+		await updateUserAvatar(user,  url);
+		res.send({ success: true, url: url });
+	} catch (error) {
+		res.send({ success: false, error });
+	}
+};
+
 module.exports = {
 	votes,
 	updatePost,
 	updateThread,
+	updateAvatar,
 };
