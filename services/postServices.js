@@ -32,6 +32,7 @@ const create = async function (description, thread, creator) {
 			name: creator.name,
 			imageUrl: creator.imageUrl,
 			id: creator.id,
+			forumSignature: creator.forumSignature,
 		},
 		createdOn: new Date(),
 	});
@@ -127,6 +128,58 @@ const updateCreatorSignature = async function (id, forumSignature) {
 	);
 };
 
+const getPopularPostsByThreadId = async function (threadId) {
+	const data = await Post.find(
+		{ 'thread.id': threadId },
+		{ 'creator.name': 1, 'creator.imageUrl': 1, description: 1, createdOn: 1 }
+	)
+		.sort({ votes: -1 })
+		.limit(3);
+
+	const result = data.map((x) => {
+		return {
+			creator: {
+				name: x.creator.name,
+				imageUrl: x.creator.imageUrl,
+			},
+			description:
+				x.description.length > 50
+					? x.description.slice(0, 50) + '...'
+					: x.description,
+			createdOn: x.createdOn,
+		};
+	});
+
+	return result;
+};
+
+const getTopPostersByThreadId = async function (threadId) {
+	const users = await Post.aggregate([
+		{
+			$unwind: '$creator',
+		},
+		{ $group: { _id: '$creator.id' } },
+	]);
+
+	console.log(users);
+	const result = [];
+	for (const user of users) {
+		const post = await Post.find(
+			{
+				$and: [
+					{ $and: [{ 'creator.id': user._id }, { 'thread.id': threadId }] },
+				],
+			},
+			{ 'creator.imageUrl': 1, 'creator.name': 1 }
+		);
+
+		result.push(post);
+	}
+
+	console.log(result);
+	return result;
+};
+
 const postServices = {
 	getById,
 	create,
@@ -138,6 +191,8 @@ const postServices = {
 	updateDescription,
 	updateCreatorImage,
 	updateCreatorSignature,
+	getPopularPostsByThreadId,
+	getTopPostersByThreadId,
 };
 
 module.exports = postServices;

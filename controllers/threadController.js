@@ -24,13 +24,13 @@ const createThread = async function (req, res) {
 };
 
 const threadView = async function (req, res) {
+	const threadId = req.params.id;
 	const timeAgo = new TimeAgo('en-US');
 
-	const thread = await threadServices.getById(req.params.id);
-	const posts = await postServices.allByThreadId(
-		req.params.id,
-		res.locals.page
-	);
+	const thread = await threadServices.getById(threadId);
+	const posts = await postServices.allByThreadId(threadId, res.locals.page);
+	const popularPosts = await postServices.getPopularPostsByThreadId(threadId);
+	const topPosters = await postServices.getTopPostersByThreadId(threadId);
 
 	const timestamp =
 		posts.length > 0
@@ -44,7 +44,7 @@ const threadView = async function (req, res) {
 
 	const user = req.session.user;
 	res.render('./threads/thread', {
-		data: { thread, user, posts, replyAgo },
+		data: { thread, user, posts, replyAgo, popularPosts, topPosters },
 	});
 };
 

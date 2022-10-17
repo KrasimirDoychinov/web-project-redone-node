@@ -1,7 +1,7 @@
-const { getPostById } = require('./postServices');
+const postServices = require('./postServices');
 
 const vote = async function (postId, userId, type) {
-	const post = await getPostById(postId);
+	const post = await postServices.getById(postId);
 	const userVoted = post.votes.find((x) => x.id === userId);
 
 	if (!userVoted) {

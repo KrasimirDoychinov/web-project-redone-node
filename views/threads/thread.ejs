@@ -4,8 +4,7 @@
 			src="https://res.cloudinary.com/detha4545/image/upload/v1665658776/swtor/forum-header_voiv9v.png"
 			alt=""
 		/>
-		<h2><%= data.thread.title %></h2>
-		<p>on <%= data.thread.createdOn.toLocaleString() %></p>
+		<h4><%= data.thread.title %></h2>
 	</div>
 	<% if (data.error) { %>
 	<p class="error"><%= data.error %></p>
@@ -47,7 +46,9 @@
 			>
 		</div>
 		<div class="forum-signature"><%- data.thread.creator.forumSignature %></div>
-		<div class="thread-info">
+	</div>
+	<div class="thread-info">
+		<div class="thread-info-main">
 			<div class="thread-info-block">
 				<p class="thread-info-block-header">Replies</p>
 				<p class="thread-info-block-info"><%= data.posts.length %></p>
@@ -61,6 +62,41 @@
 			<div class="thread-info-block">
 				<p class="thread-info-block-header">Last reply</p>
 				<p class="thread-info-block-info"><%= data.replyAgo %></p>
+			</div>
+		</div>
+		<div class="extra-info">
+			<i class="fas fa-chevron-down extra-info-btn"></i>
+			<div class="extra-info-main hidden">
+				<h5 class="extra-heading">TOP POSTERS</h5>
+				<div class="top-posts">
+						<% data.topPosters.forEach(poster => { %>
+							<div class="top-poster">
+								<img src="<%= poster[0].creator.imageUrl %>" alt="">
+								<div class="top-poster-info">
+									<p class="top-poster-info-name"><%= poster[0].creator.name %></p>
+									<p><%= poster.length %> posts</p>
+								</div>
+							</div>
+						<% }) %>
+				</div>
+				<h5 class="extra-heading">POPULAR POSTS</h5>
+				<div class="popular-posts">
+					<% data.popularPosts.forEach(element => { %>
+						<div class="popular-post">
+							<div class="popular-post-heading">
+								<img src="<%= element.creator.imageUrl %>" alt="">
+								<div class="popular-post-heading-info">
+									<p class="red"><%= element.creator.name %></p>
+									<p><%= element.createdOn.toLocaleString().split(', ')[0]%></p>
+								</div>
+							</div>
+							<div class="popular-desc">
+								<p><%- element.description  %></p>
+							</div>
+						</div>
+					<% }) %>
+					
+				</div>
 			</div>
 		</div>
 	</div>
@@ -93,11 +129,13 @@
 						</div>
 						<% } %>
 					</div>
+					<% if (data.user.id !== post.creator.id) { %>
 					<div class="vote-container">
 						<i class="fas fa-chevron-up vote" data-type="upvote"></i>
 						<p id="post-votes"><%= post.votes %></p>
 						<i class="fas fa-chevron-down vote" data-type="downvote"></i>
 					</div>
+					<% } %>
 				</div>
 			</div>
 			<div class="thread-post-content">

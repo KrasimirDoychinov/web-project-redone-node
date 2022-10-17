@@ -115,3 +115,9 @@ document.querySelectorAll('.delete-btn').forEach((x) => {
 			: 'Close';
 	});
 });
+
+document.querySelector('.extra-info-btn').addEventListener('click', (e) => {
+	const extraInfoMain = document.querySelector('.extra-info-main');
+	e.currentTarget.classList.toggle('rotate-180');
+	extraInfoMain.classList.toggle('hidden');
+});
