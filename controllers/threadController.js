@@ -32,6 +32,7 @@ const threadView = async function (req, res) {
 	const popularPosts = await postServices.getPopularPostsByThreadId(threadId);
 	const topPosters = await postServices.getTopPostersByThreadId(threadId);
 
+	console.log(topPosters);
 	const timestamp =
 		posts.length > 0
 			? new Date(Math.abs(Date.now() - posts[posts.length - 1]?.createdOn))

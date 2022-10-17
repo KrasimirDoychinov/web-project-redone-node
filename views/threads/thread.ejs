@@ -65,7 +65,9 @@
 			</div>
 		</div>
 		<div class="extra-info">
-			<i class="fas fa-chevron-down extra-info-btn"></i>
+				<% if (data.topPosters.length > 0 && data.popularPosts.length > 0) { %>
+					<i class="fas fa-chevron-down extra-info-btn"></i>
+				<% } %>
 			<div class="extra-info-main hidden">
 				<h5 class="extra-heading">TOP POSTERS</h5>
 				<div class="top-posts">
@@ -95,7 +97,6 @@
 							</div>
 						</div>
 					<% }) %>
-					
 				</div>
 			</div>
 		</div>

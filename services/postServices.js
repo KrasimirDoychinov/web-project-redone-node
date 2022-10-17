@@ -155,14 +155,16 @@ const getPopularPostsByThreadId = async function (threadId) {
 
 const getTopPostersByThreadId = async function (threadId) {
 	const users = await Post.aggregate([
+		{ $match: { 'thread.id': threadId } },
 		{
 			$unwind: '$creator',
 		},
 		{ $group: { _id: '$creator.id' } },
 	]);
 
-	console.log(users);
 	const result = [];
+
+	const mappedUsers = users.map((x) => (x.length === 0 ? '' : x));
 	for (const user of users) {
 		const post = await Post.find(
 			{
@@ -176,7 +178,6 @@ const getTopPostersByThreadId = async function (threadId) {
 		result.push(post);
 	}
 
-	console.log(result);
 	return result;
 };
 
