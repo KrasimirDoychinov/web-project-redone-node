@@ -113,6 +113,7 @@ const updateAvatar = async function (user, imageUrl) {
 			name: dbUser.name,
 			id: dbUser.id,
 			imageUrl: dbUser.imageUrl,
+			forumSignature: dbUser.forumSignature,
 		};
 	} catch (error) {
 		console.log(error);
@@ -130,6 +131,13 @@ const updateSignature = async function (id, forumSignature) {
 	user.forumSignature = forumSignature;
 
 	await user.save();
+
+	return {
+		name: user.name,
+		id: user.id,
+		imageUrl: user.imageUrl,
+		forumSignature: user.forumSignature,
+	};
 };
 
 const userService = {
