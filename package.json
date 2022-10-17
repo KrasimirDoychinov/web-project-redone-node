@@ -21,6 +21,7 @@
     "express": "^4.18.1",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.3",
+    "javascript-time-ago": "^2.5.7",
     "jquery": "^3.6.1",
     "mongoose": "^6.6.2",
     "puppeteer": "^18.2.1",

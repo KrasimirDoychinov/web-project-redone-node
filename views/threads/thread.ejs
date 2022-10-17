@@ -47,6 +47,22 @@
 			>
 		</div>
 		<div class="forum-signature"><%- data.thread.creator.forumSignature %></div>
+		<div class="thread-info">
+			<div class="thread-info-block">
+				<p class="thread-info-block-header">Replies</p>
+				<p class="thread-info-block-info"><%= data.posts.length %></p>
+			</div>
+			<div class="thread-info-block">
+				<p class="thread-info-block-header">Created</p>
+				<p class="thread-info-block-info">
+					<%= data.thread.createdOn.toLocaleString().split(', ')[0] %>
+				</p>
+			</div>
+			<div class="thread-info-block">
+				<p class="thread-info-block-header">Last reply</p>
+				<p class="thread-info-block-info"><%= data.replyAgo %></p>
+			</div>
+		</div>
 	</div>
 	<div class="thread-posts">
 		<% let counter = 2; data.posts.forEach(post => {%>
