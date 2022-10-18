@@ -1,0 +1,71 @@
+.no-threads {
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5em;
+
+	h2 {
+		align-self: center;
+	}
+
+	a {
+		font-size: 15px;
+		margin-top: 3em;
+	}
+}
+
+.base-thread {
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	margin: 1em 0;
+	background-color: $striped-dark;
+	padding: 0.8em 0.5em;
+
+	&-heading {
+		display: flex;
+		flex-flow: column;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 1em;
+		h1 {
+			color: $purple;
+		}
+	}
+	&-desc {
+		font-size: 14px;
+	}
+}
+
+.thread-create {
+	display: flex;
+	flex-flow: column;
+	background-color: $light-dark;
+	margin-top: 2em;
+	padding: 1em;
+	transform: translatex(800px);
+	transition: 1s;
+
+	&-data {
+		display: flex;
+		flex-flow: column;
+		justify-content: center;
+		align-self: center;
+		gap: 0.5em;
+		margin: 0.5em 0;
+		width: 80vw;
+	}
+}
+
+.thread-create.active-thread {
+	transition: 1s;
+	transform: translateX(0px);
+}
+
+.error {
+	margin-top: 2em;
+}
+
+

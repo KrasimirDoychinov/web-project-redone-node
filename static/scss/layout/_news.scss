@@ -1,0 +1,14 @@
+.news {
+	margin: 1em 0;
+
+	&-element {
+		a {
+			color: $gold;
+		}
+
+		.scraped-name {
+    font-size: 12px;
+			color: $gold;
+		}
+	}
+}

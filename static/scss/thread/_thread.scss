@@ -1,0 +1,164 @@
+.thread-container {
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	width: 95vw;
+	margin-top: 2em;
+
+	.thread-heading {
+		background-color: $striped-dark;
+		padding: 0.5em;
+		display: flex;
+		flex-flow: column;
+		margin-bottom: 2em;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5em;
+
+		h4 {
+			inline-size: 100%;
+			overflow-wrap: break-word;
+		}
+
+		img {
+			height: 50px;
+			width: 50px;
+		}
+
+		p {
+			font-size: 12px;
+		}
+	}
+
+	.create-new-btn {
+		align-self: flex-start;
+		margin-top: 1em;
+	}
+}
+
+.thread-info {
+	background-color: $striped-dark;
+	padding: 1em 2em;
+	display: flex;
+	flex-flow: column;
+	gap: 1em;
+
+	&-main {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&-block {
+		display: flex;
+		flex-flow: column;
+		align-items: center;
+		gap: 0.4em;
+
+		&-header {
+			font-size: 13px;
+			color: $gray;
+		}
+
+		&-info {
+			font-size: 12px;
+		}
+	}
+
+	.extra-info {
+		margin-top: 1em;
+		display: flex;
+		flex-flow: column;
+		justify-content: center;
+		align-items: center;
+
+		&-btn {
+			padding: 0.5em 1em 0.5em 1em;
+			transition: 0.5s;
+		}
+
+		&-main {
+			width: 100%;
+		}
+	}
+}
+
+.popular-posts {
+	display: flex;
+	flex-flow: column;
+	gap: 2em;
+
+	.popular-post {
+		display: flex;
+		flex-flow: column;
+		gap: 0.5em;
+
+		&-heading {
+			font-size: 12px;
+			color: $gray;
+			display: flex;
+			gap: 0.5em;
+			align-items: flex-end;
+
+			img {
+				height: 50px;
+				width: 50px;
+			}
+		}
+
+		.popular-desc {
+			font-size: 11px;
+		}
+	}
+}
+
+.top-posts {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	gap: 1em;
+	margin-bottom: 3em;
+
+	.top-poster {
+		display: flex;
+		flex-flow: row;
+		font-size: 12px;
+		gap: 0.5em;
+		color: $gray;
+
+		img {
+			width: 50px;
+			height: 50px;
+		}
+
+		&-info {
+			display: flex;
+			flex-flow: column;
+			justify-content: flex-end;
+
+			&-name {
+				color: $red;
+			}
+		}
+	}
+}
+
+.agree-container {
+	display: flex;
+	flex-flow: column;
+	width: 50%;
+	margin-top: 0.5em;
+	p {
+		font-size: 12px;
+	}
+}
+
+.main-thread {
+	border: 2px solid $border-gray;
+	margin-bottom: 1em;
+}
+
+.extra-heading {
+	border-bottom: 1px solid $gray;
+	padding-bottom: 0.5em;
+	margin-bottom: 1em;
+}

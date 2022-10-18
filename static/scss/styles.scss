@@ -1,0 +1,27 @@
+@import './globals/utils';
+@import './globals/globals';
+
+@import 'index';
+@import 'auth';
+
+@import './layout/header';
+@import './layout/news';
+@import './layout/hottest';
+
+@import './baseThread/baseThreadSelected';
+
+@import './thread/thread';
+
+@import './posts/post';
+
+@import './user/profile';
+
+.grid-item,
+header,
+main,
+nav,
+aside,
+footer,
+div {
+	// border: 1px solid #377eff;
+}

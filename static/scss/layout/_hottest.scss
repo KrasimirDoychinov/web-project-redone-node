@@ -1,0 +1,14 @@
+.hottest {
+	margin-bottom: 1em;
+
+	&-element {
+		a {
+			color: $white;
+		}
+
+		.hottest-name {
+			font-size: 12px;
+			color: $red;
+		}
+	}
+}

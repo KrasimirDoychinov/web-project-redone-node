@@ -1,0 +1,42 @@
+.user-container {
+	display: flex;
+	flex-flow: column;
+	width: 98vw;
+
+	.user-heading {
+		display: flex;
+		flex-flow: column;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5em;
+		padding: 1em 0 5em 0;
+		background-color: $off-dark;
+
+		img {
+			height: 125px;
+			width: 125px;
+		}
+
+		&-info {
+			h2 {
+				font-size: 20px;
+				color: $gold;
+			}
+
+			p {
+				font-size: 15px;
+				color: $gray;
+			}
+		}
+	}
+}
+
+.images {
+	width: 99%;
+	height: 10em;
+	white-space: nowrap;
+	overflow: auto;
+	display: flex;
+	flex-flow: row;
+	gap: 1em;
+}

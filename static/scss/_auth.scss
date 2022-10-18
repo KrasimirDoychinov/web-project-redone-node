@@ -1,0 +1,28 @@
+.auth {
+	display: flex;
+	flex-flow: column;
+	width: 90vw;
+	background-color: $off-dark;
+	padding: 0.5em;
+	border-radius: 2%;
+	border: 1px solid $light-dark;
+
+	&-data {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 3.5em;
+		padding: 0 2em;
+
+		.auth-input {
+			display: flex;
+			flex-flow: column;
+			align-items: flex-end;
+			justify-content: center;
+
+			input {
+				height: 1.2em;
+			}
+		}
+	}
+}
