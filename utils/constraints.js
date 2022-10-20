@@ -10,12 +10,12 @@ const threadConstraints = {
 	titleMinLength: 10,
 	titleMaxLength: 50,
 	descriptionMinLength: 10,
-	descriptionMaxLength: 20000,
+	descriptionMaxLength: 800,
 };
 
 const postConstraints = {
 	descriptionMinLength: 10,
-	descriptionMaxLengt: 20000,
+	descriptionMaxLength: 800,
 };
 
 module.exports = {

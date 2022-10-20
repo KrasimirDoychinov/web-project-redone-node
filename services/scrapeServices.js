@@ -9,20 +9,20 @@ const scrapeNews = async function () {
 	for (let i = 1; i <= 10; i++) {
 		try {
 			const element = await page.waitForSelector(
-				`#ipsLayout_mainArea > section > div:nth-child(3) > div > div > ol.ipsStream.ipsStream_withTimeline.ipsList_reset > li:nth-child(${
+				`#ipsLayout_mainArea > section > div:nth-child(2) > div > div > ol.ipsStream.ipsStream_withTimeline.ipsList_reset > li:nth-child(${
 					i * 2
 				}) > div > div.ipsStreamItem_header.ipsPhotoPanel.ipsPhotoPanel_mini > div > h2 > span > a`,
 				{ timeout: 500 }
 			);
 
 			const dateElement = await page.waitForSelector(
-				`#ipsLayout_mainArea > section > div:nth-child(3) > div > div > ol.ipsStream.ipsStream_withTimeline.ipsList_reset > li:nth-child(${
+				`#ipsLayout_mainArea > section > div:nth-child(2) > div > div > ol.ipsStream.ipsStream_withTimeline.ipsList_reset > li:nth-child(${
 					i * 2
 				}) > div > ul > li:nth-child(1) > a > time`
 			);
 
 			const nameElement = await page.waitForSelector(
-				`#ipsLayout_mainArea > section > div:nth-child(3) > div > div > ol.ipsStream.ipsStream_withTimeline.ipsList_reset > li:nth-child(${
+				`#ipsLayout_mainArea > section > div:nth-child(2) > div > div > ol.ipsStream.ipsStream_withTimeline.ipsList_reset > li:nth-child(${
 					i * 2
 				}) > div > div.ipsStreamItem_header.ipsPhotoPanel.ipsPhotoPanel_mini > div > p > a:nth-child(1) > font`
 			);

@@ -12,6 +12,10 @@
 	-o-transition: none !important;
 }
 
+html {
+	display:flex;
+	justify-content: center;
+}
 html,
 body {
 	color: $white;
@@ -43,31 +47,44 @@ body {
 	display: grid;
 	grid-template-rows: auto 1fr auto;
 	grid-template-areas:
-		'header'
-		'main  '
-		'footer';
+		'header '
+		'news   '
+		'hottest'
+		'main   '
+		'footer ';
 	justify-content: center;
 	align-items: center;
 	background-color: $dark;
 	font-family: 'Cascadia Mono', sans-serif;
 	font-size: 16px;
 	padding: 1em;
-	height: 90vh;
+	height: 100vh;
+	padding-bottom: 10em;
 }
+
 
 header {
 	grid-area: header;
 }
 
+.news {
+	grid-area: news;
+}
+
+.hottest {
+	grid-area: hottest;
+}
+
 main {
 	grid-area: main;
-	display: grid;
+	display: flex;
+	align-self: center;
 	justify-content: center;
 	align-items: center;
-	opacity: 1;
-	grid-area: main;
 	padding-bottom: 7em;
-	width: 98vw;
+	width: 80%;
+	margin: auto;
+
 }
 
 footer {
@@ -309,14 +326,12 @@ table {
 
 .thread-posts {
 	width: 100%;
-	align-self: center;
 	margin-top: 2em;
 }
 
 .thread-post {
 	display: flex;
 	flex-flow: column;
-	align-self: center;
 	background-color: $striped-light-dark;
 	width: 100%;
 	border-bottom: 1px solid $gold;

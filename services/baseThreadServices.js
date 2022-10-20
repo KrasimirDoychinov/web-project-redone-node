@@ -7,7 +7,7 @@ const create = function (title, description, imageUrl) {
 		imageUrl,
 	});
 
-	newBaseThread.save().catch((err) => console.log(err));
+	newBaseThread.save();
 };
 
 const getById = async function (id) {

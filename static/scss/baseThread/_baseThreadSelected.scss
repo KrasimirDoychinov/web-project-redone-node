@@ -55,7 +55,19 @@
 		align-self: center;
 		gap: 0.5em;
 		margin: 0.5em 0;
-		width: 80vw;
+		width: 80%;
+	}
+}
+
+@media screen and (min-width: 1000px) {
+	.thread-create {
+		transform: translateX(1500px);
+	}
+}
+
+@media screen and (min-width: 1500px) {
+	.thread-create {
+		transform: translateX(2000px);
 	}
 }
 

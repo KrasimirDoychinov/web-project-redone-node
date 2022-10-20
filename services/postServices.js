@@ -18,7 +18,7 @@ const create = async function (description, thread, creator) {
 		description.length > postConstraints.descriptionMaxLength
 	) {
 		data.error = buildConstraintError(
-			'Post',
+			'Description',
 			postConstraints.descriptionMinLength,
 			postConstraints.descriptionMaxLength
 		);

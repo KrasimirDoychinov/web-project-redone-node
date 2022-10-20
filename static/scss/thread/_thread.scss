@@ -2,9 +2,9 @@
 	display: flex;
 	flex-flow: column;
 	justify-content: center;
-	width: 95vw;
+	align-self: center;
 	margin-top: 2em;
-
+	width: 100%;
 	.thread-heading {
 		background-color: $striped-dark;
 		padding: 0.5em;

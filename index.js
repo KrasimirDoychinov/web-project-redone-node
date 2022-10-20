@@ -9,8 +9,6 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
-const { getNews } = require('./services/newsServices');
-const { getThreadsByMostViews } = require('./services/threadServices');
 const newsService = require('./services/newsServices');
 const threadServices = require('./services/threadServices');
 
@@ -26,7 +24,7 @@ cloudinary.config({
 });
 
 // Checks and populates the DB with neede documents
-populateDb();
+// populateDb();
 
 // View engine
 app.use('/static', express.static(__dirname + '/static'));
@@ -72,6 +70,7 @@ app.use('/api', require('./routes/apiRoutes'));
 app.use('/', require('./routes/homeRoutes'));
 // Mongo DB connection
 const dbUri = process.env.MONGODB_URI;
+console.log(dbUri);
 mongoose
 	.connect(dbUri, { useUnifiedTopology: true, useNewUrlParser: true })
 	.then(() => console.log('Connected to MongoDB'))
