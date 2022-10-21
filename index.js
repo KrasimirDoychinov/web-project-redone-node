@@ -9,8 +9,8 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
-const newsService = require('./services/newsServices');
-const threadServices = require('./services/threadServices');
+const newsService = require('./components/news/newsServices');
+const threadServices = require('./components/thread/threadServices');
 
 // Env config
 dotenv.config();
@@ -61,13 +61,13 @@ app.use((req, res, next) => {
 });
 app.use(bp.urlencoded({ extended: true }));
 app.use(bp.json());
-app.use('/auth', require('./routes/authRoutes'));
-app.use('/user', require('./routes/userRoutes'));
-app.use('/baseThread', require('./routes/baseThreadRoutes'));
-app.use('/thread', require('./routes/threadRoutes'));
-app.use('/post', require('./routes/postRoutes'));
-app.use('/api', require('./routes/apiRoutes'));
-app.use('/', require('./routes/homeRoutes'));
+app.use('/auth', require('./components/auth/authRoutes'));
+app.use('/user', require('./components/user/userRoutes'));
+app.use('/baseThread', require('./components/baseThread/baseThreadRoutes'));
+app.use('/thread', require('./components/thread/threadRoutes'));
+app.use('/post', require('./components/post/postRoutes'));
+app.use('/api', require('./components/api/apiRoutes'));
+app.use('/', require('./components/home/homeRoutes'));
 // Mongo DB connection
 const dbUri = process.env.MONGODB_URI;
 console.log(dbUri);

@@ -1,6 +1,7 @@
 .user-container {
 	display: flex;
 	flex-flow: column;
+	width: 95vw;
 
 	.user-heading {
 		display: flex;
@@ -38,4 +39,8 @@
 	display: flex;
 	flex-flow: row;
 	gap: 1em;
+}
+
+.thread-title {
+	word-break: break-word;
 }

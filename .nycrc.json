@@ -1,7 +1,7 @@
 {
     "all": true,
     "include": [
-        "services/*.js"
+        "components/**/*.js"
     ],
     "exclude": [
         "**/*spec.js"

@@ -1,14 +1,14 @@
-const User = require('../models/User');
-const BaseThread = require('../models/BaseThread');
-const { createUser } = require('../services/userServices');
-const { createBaseThread } = require('../services/baseThreadServices');
-const { scrapeNews } = require('../services/scrapeServices');
-const News = require('../models/News');
-const { getUnique } = require('../services/newsServices');
-const scrapeService = require('../services/scrapeServices');
-const newsService = require('../services/newsServices');
-const userService = require('../services/userServices');
-const baseThreadService = require('../services/baseThreadServices');
+const User = require('../components/user/User');
+const BaseThread = require('../components/baseThread/BaseThread');
+const { createUser } = require('../components/user/userServices');
+const { createBaseThread } = require('../components/baseThread/baseThreadServices');
+const { scrapeNews } = require('../components/utils/scrapeServices');
+const News = require('../components/news/News');
+const { getUnique } = require('../components/news/newsServices');
+const scrapeService = require('../components/utils/scrapeServices');
+const newsService = require('../components/news/newsServices');
+const userService = require('../components/user/userServices');
+const baseThreadService = require('../components/baseThread/baseThreadServices');
 
 const populateUsers = async function () {
 	if (!(await User.findOne({ name: 'admin' }))) {
